@@ -34,8 +34,28 @@ CREATE TABLE IF NOT EXISTS shoes(
     colorway VARCHAR(64) NOT NULL,
     quantity SHORTINT NOT NULL,
     size TINYINT NOT NULL,
-    price INT NOT NULL,
+    price INTEGER NOT NULL,
     forAuction TINYINT(1),
     PRIMARY KEY (model, forAuction, size)
+);
+
+CREATE TABLE IF NOT EXISTS auction_item(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    model VARCHAR(16) NOT NULL,
+    forAuction TINYINT(1),
+    size TINYINT NOT NULL,
+    auctioneer VARCHAR(32) NOT NULL,
+    auctionID INTEGER,
+    FOREIGN KEY (auctionID) REFERENCES auction(id),
+    FOREIGN KEY (auctioneer) REFERENCES users(username),
+    FOREIGN KEY (model, forAuction, size) REFERENCES shoes(model, forAuction, size)
+);
+
+CREATE TABLE IF NOT EXISTS photos(
+    model VARCHAR(16) NOT NULL,
+    forAuction TINYINT(1),
+    size TINYINT NOT NULL,
+    photoLocation TEXT PRIMARY KEY,
+    FOREIGN KEY (model, forAuction, size) REFERENCES shoes(model, forAuction, size)
 );
 `);
