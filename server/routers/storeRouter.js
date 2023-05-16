@@ -1,6 +1,8 @@
 import { Router } from "express";
 const router = Router();
 import db from "../databases/connection.js";
+import multer from "multer";
+import path from "path";
 
 router.get("/shoes", async (req, res) => {
     const shoes = await db.all("SELECT * FROM shoes WHERE forAuction = 0");
@@ -15,7 +17,18 @@ router.get("/shoes/:model", async (req, res) => {
     console.log(shoes);
 });
 
-router.post("/shoes", async (req, res) => {
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "../storeImages")
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname))
+    }
+});
+
+const upload = multer({ storage: storage })
+
+router.post("/shoes", upload.array(''), async (req, res) => {
     if (!req.body.brand || !req.body.name || !req.body.model || !req.body.colorway || !req.body.quantity || !req.body.size || !req.body.price) {
         return res.status(400).send({ message: "Missing inforamtion" });
     }
