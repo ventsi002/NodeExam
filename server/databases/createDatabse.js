@@ -59,3 +59,7 @@ CREATE TABLE IF NOT EXISTS photos(
     FOREIGN KEY (model, forAuction, size) REFERENCES shoes(model, forAuction, size)
 );
 `);
+
+db.exec(`INSERT INTO roles (role) VALUES ('user');`);
+db.exec(`INSERT INTO roles (role) VALUES ('auctioneer');`);
+db.exec(`INSERT INTO roles (role) VALUES ('admin');`);
