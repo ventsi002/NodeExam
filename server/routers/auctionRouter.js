@@ -20,6 +20,14 @@ router.post("/auction", async (req, res) => {
         return res.status(400).send({ message: "Missing inforamtion" });
     }
     await db.run("INSERT INTO shoes(brand, name, model, colorway, quantity, size, price, forAuction) VALUES (?, ?, ?, ?, ?, ?, ?, 1)", [req.body.brand, req.body.name, req.body.model, req.body.colorway, req.body.quantity, req.body.size, req.body.price]);
+    await db.run("INSERT INTO auction(description, bid, endDate) VALUES(?, ?, ?)", [req.body.description, req.body.bid, req.body.endDate], async (error) => {
+        if(error)
+        {
+            console.log("sorry brat");
+        }
+        console.log(this.id)
+        await db.run("INSERT INTO auction_item(model, forAuction, size, auctioneer, auctionID) VALUES(?, 1, ?, ?, ?)",[req.body.model, 1, req.body.size, req,body.username])
+    })
     res.send({ message: "Shoe added successfully" });
 });
 
