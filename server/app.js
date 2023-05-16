@@ -11,6 +11,8 @@ app.use(authRouter);
 import storeRouter from "./routers/storeRouter.js";
 app.use(storeRouter);
 
+import auctionRouter from "./routers/auctionRouter.js";
+app.use(auctionRouter);
 
 
 const PORT = process.env.PORT || 8080;
