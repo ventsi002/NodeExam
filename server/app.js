@@ -8,6 +8,9 @@ app.use(express.json());
 import authRouter from "./routers/authRouter.js";
 app.use(authRouter);
 
+import storeRouter from "./routers/storeRouter.js";
+app.use(storeRouter);
+
 
 
 const PORT = process.env.PORT || 8080;
