@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS auction(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     description TEXT NOT NULL,
     bid INTEGER NOT NULL,
+    endDate DATETIME NOT NULL,
     bidUser VARCHAR(32),
     FOREIGN KEY (bidUser) REFERENCES users(username)
 );
