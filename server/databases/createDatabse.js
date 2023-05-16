@@ -19,10 +19,11 @@ CREATE TABLE IF NOT EXISTS users(
     FOREIGN KEY (role) REFERENCES roles (id) 
 );
 
-CREATE TABLE IF NOT EXISTS auction(
+CREATE TABLE IF NOT EXISTS auctions(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     description TEXT NOT NULL,
     bid INTEGER NOT NULL,
+    endDate DATETIME NOT NULL,
     bidUser VARCHAR(32),
     FOREIGN KEY (bidUser) REFERENCES users(username)
 );
@@ -39,7 +40,7 @@ CREATE TABLE IF NOT EXISTS shoes(
     PRIMARY KEY (model, forAuction, size)
 );
 
-CREATE TABLE IF NOT EXISTS auction_item(
+CREATE TABLE IF NOT EXISTS auction_items(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     model VARCHAR(16) NOT NULL,
     forAuction TINYINT(1),

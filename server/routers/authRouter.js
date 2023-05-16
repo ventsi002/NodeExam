@@ -39,7 +39,6 @@ router.put("/role", async (req, res) => {
     res.send({ message: "User role updated successfully" });
 });
 
-
 router.post("/auth/login", async (req, res) => {
     const userFound = await db.get("SELECT * FROM users WHERE username = ?", [req.body.username])
     if (userFound) {
