@@ -3,7 +3,14 @@ const router = Router();
 import db from "../databases/connection.js";
 
 router.get("/shoes", async (req, res) => {
-    const shoes = await db.all("SELECT * FROM shoes");
+    const shoes = await db.all("SELECT * FROM shoes WHERE forAuction = 0");
+    res.send({ shoes });
+    console.log(shoes);
+});
+
+router.get("/shoes/:model", async (req, res) => {
+    const model = req.params.model
+    const shoes = await db.all("SELECT * FROM shoes WHERE forAuction = 0 AND model = ?", [model]);
     res.send({ shoes });
     console.log(shoes);
 });
@@ -18,13 +25,13 @@ router.post("/shoes", async (req, res) => {
 
 router.put("/shoes/:model", async (req, res) => {
     const updateModel = req.params.model;
-    await db.all("UPDATE shoes SET brand = ?, name = ?, model = ?, colorway = ?, quantity = ?, size = ?, price = ? WHERE model = ?", [req.body.brand, req.body.name, req.body.model, req.body.colorway, req.body.quantity, req.body.size, req.body.price, updateModel]);
+    await db.all("UPDATE shoes SET brand = ?, name = ?, model = ?, colorway = ?, quantity = ?, price = ? WHERE model = ? AND forAuction = 0 AND size = ?", [req.body.brand, req.body.name, req.body.model, req.body.colorway, req.body.quantity, req.body.price, updateModel, req.body.size]);
     res.send({ message: "Shoe updated successfully" });
 });
 
 router.delete("/shoes/:model", async (req, res) => {
     const updateModel = req.params.model;
-    await db.all("DELETE FROM shoes WHERE model = ?", [updateModel]);
+    await db.all("DELETE FROM shoes WHERE model = ? AND forAuction = 0", [updateModel]);
     res.send({ message: "Shoe deleted successfully" });
 });
 
