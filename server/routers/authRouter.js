@@ -34,6 +34,11 @@ router.post("/auth/signup", async (req, res) => {
     res.send({ message: "User created successfully" });
 });
 
+router.put("/role", async (req, res) => {
+    await db.all("UPDATE users SET role = ?", [req.body.role])
+    res.send({ message: "User role updated successfully" });
+});
+
 router.post("/auth/login", async (req, res) => {
     const userFound = await db.get("SELECT * FROM users WHERE username = ?", [req.body.username])
     if (userFound) {
