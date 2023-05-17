@@ -1,4 +1,6 @@
 <script>
+    import ShoeDisplay from "./Components/ShoeDisplay.svelte";
+
   let selectedFile;
   const formData = new FormData();
   function handleFileChange(event) {
@@ -15,6 +17,8 @@
   }
 </script>
 
-<h1>pedali</h1>
+<ShoeDisplay/>
+
+<!----<h1>pedali</h1>
 <input on:change={handleFileChange} class="fileUpload" type="file" name="file" />
-<input type="submit" on:click={upload} />
+<input type="submit" on:click={upload} /> ---> 
