@@ -28,7 +28,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
-router.post("/shoes", upload.array(''), async (req, res) => {
+router.post("/shoes", upload.array('file'), async (req, res) => {
     if (!req.body.brand || !req.body.name || !req.body.model || !req.body.colorway || !req.body.quantity || !req.body.size || !req.body.price) {
         return res.status(400).send({ message: "Missing inforamtion" });
     }

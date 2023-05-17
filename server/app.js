@@ -5,6 +5,12 @@ import express, { json } from "express";
 const app = express();
 app.use(express.json());
 
+import cors from "cors"
+app.use(cors({
+    credentials: true,
+    origin: true
+}));
+
 import authRouter from "./routers/authRouter.js";
 app.use(authRouter);
 
