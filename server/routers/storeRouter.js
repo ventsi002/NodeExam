@@ -5,7 +5,7 @@ import multer from "multer";
 import path from "path";
 
 router.get("/shoes", async (req, res) => {
-    const shoes = await db.all("SELECT * FROM shoes WHERE forAuction = 0");
+    const shoes = await db.all("SELECT * FROM shoes INNER JOIN photos ON shoes.model = photos.model WHERE shoes.forAuction = 0");
     res.send({ shoes });
     console.log(shoes);
 });
@@ -19,7 +19,7 @@ router.get("/shoes/:model", async (req, res) => {
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "storeImages/")
+        cb(null, "../client/public/images/")
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + path.extname(file.originalname))

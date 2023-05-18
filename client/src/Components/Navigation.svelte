@@ -7,9 +7,9 @@
     <Router>
         <nav>
             <Route path="/">
-                <Link to="/" style="text-decoration: none; margin-right: 15px;">Home</Link> 
-                <Link to="/" style="text-decoration: none; margin-right: 15px;">Auction</Link>
-                <Link to="/" style="text-decoration: none;">Contact us</Link>
+                <Link to="/" style="text-decoration: none; margin-right: 15px;color: #cce3de;"><p>Home</p></Link>
+                <Link to="/" style="text-decoration: none; margin-right: 15px;color: #cce3de;"><p>Auction</p></Link>
+                <Link to="/" style="text-decoration: none;color: #cce3de;"><p>Contact us</p></Link>
                 <!-- <Home /> -->
             </Route>
 
@@ -46,7 +46,7 @@
 
 <style>
     .nav {
-        background-color: aquamarine;
+        background-color: #2f3e46;
         font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
         line-height: 1.5;
         font-weight: 500;
@@ -59,6 +59,20 @@
         text-decoration: none;
         display: flex;
         justify-content: space-between;
+        color: #cce3de;
+    }
+
+    p{
+        display: inline
+    }
+    p:hover
+    {
+        color: #a4c3b2
+    }
+
+    svg:hover
+    {
+        color: #a4c3b2;
     }
 
     svg {

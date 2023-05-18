@@ -1,5 +1,11 @@
+<script>
+    export let displayImage
+    export let shoeName
+    export let price
+</script>
+
 <div id="shoe-display">
-    <img/>
-    <h4>Shoe name</h4>
-    <h5>price: </h5>
+    <img src={displayImage}/>
+    <p id="display-title">{shoeName}</p>
+    <p id="price">price: {price}</p>
 </div>
