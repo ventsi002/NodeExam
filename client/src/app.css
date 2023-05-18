@@ -1,8 +1,32 @@
+body{
+  background-color: #f6fff8;
+}
+
+#display-title
+{
+  font-size: 16px;
+}
+#price
+{
+  font-size: 12px
+}
+
 #shoe-display
 {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   width: 200px;
   padding-top: 3vh;
   text-align: center;
   padding-right: 0vw;
-  border: 1px solid red;
+  border: 1px solid #2f3e46;
+  border-radius: 12px;
+  background-color: #2f3e46;
+  color: #cce3de;
+}
+
+#shoe-display:hover
+{
+  cursor: pointer;
+  height: 100px;
+  width: 220px
 }
