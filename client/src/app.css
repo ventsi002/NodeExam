@@ -27,6 +27,11 @@ body{
 #shoe-display:hover
 {
   cursor: pointer;
-  height: 100px;
-  width: 220px
+}
+
+#display
+{
+  display: flex;
+  gap: 10px;
+  /*justify-content: space-between;*/
 }

@@ -5,8 +5,8 @@ import multer from "multer";
 import path from "path";
 
 router.get("/shoes", async (req, res) => {
-    const shoes = await db.all("SELECT * FROM shoes INNER JOIN photos ON shoes.model = photos.model WHERE shoes.forAuction = 0");
-    res.send({ shoes });
+    const shoes = await db.all("SELECT * FROM shoes RIGHT JOIN photos ON shoes.model = photos.model WHERE shoes.forAuction = 0 GROUP BY shoes.model");
+    res.send(shoes);
     console.log(shoes);
 });
 
