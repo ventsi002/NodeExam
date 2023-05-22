@@ -1,4 +1,5 @@
 body{
+  overflow-x: hidden;
   background-color: #f6fff8;
 }
 
@@ -24,9 +25,13 @@ body{
   color: #cce3de;
 }
 
+#shoes
+{
+  display: flex;
+  gap: 10px;
+}
+
 #shoe-display:hover
 {
   cursor: pointer;
-  height: 100px;
-  width: 220px
 }
