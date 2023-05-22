@@ -58,6 +58,7 @@
     </Route>
     <Route path="admin">
         <Admin/>
+    </Route>
     <Route path="shoe">
         <Shoe/>
     </Route>

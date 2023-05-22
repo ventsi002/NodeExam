@@ -54,7 +54,7 @@
         margin-top: 20vh;
         justify-content: center;
     }
-    svg
+    #admin-page svg
     {
         fill: #cce3de;
     }
@@ -65,7 +65,7 @@
         color: #2f3e46;
     }
 
-    .box:hover svg
+    #admin-page .box:hover svg
     {
         fill: #2f3e46;
     }
