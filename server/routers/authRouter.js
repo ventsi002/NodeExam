@@ -44,7 +44,7 @@ router.post("/auth/login", async (req, res) => {
     if (userFound) {
         const passwordsMatch = req.body.password === decrypt(userFound.password)
         if (passwordsMatch) {
-            req.session.username = userFound.username
+            //req.session.username = userFound.username
             res.send({ message: "Logged in" })
         }
         else {

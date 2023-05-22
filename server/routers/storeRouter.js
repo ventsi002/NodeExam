@@ -5,16 +5,16 @@ import multer from "multer";
 import path from "path";
 
 router.get("/shoes", async (req, res) => {
-    const shoes = await db.all("SELECT * FROM shoes INNER JOIN photos ON shoes.model = photos.model WHERE shoes.forAuction = 0");
+    const shoes = await db.all("SELECT * FROM photos INNER JOIN shoes ON shoes.model = photos.model WHERE shoes.forAuction = 0 GROUP BY shoes.model");
     res.send( shoes );
     console.log(shoes);
 });
 
 router.get("/shoes/:model", async (req, res) => {
     const model = req.params.model
-    const shoes = await db.all("SELECT * FROM shoes WHERE forAuction = 0 AND model = ?", [model]);
-    res.send({ shoes });
-    console.log(shoes);
+    const shoe = await db.all("SELECT size FROM shoes WHERE forAuction = 0 AND model = ?", [model]);
+    const photos = await db.all("SELECT photoLocation FROM photos WHERE forAuction = 0 AND model = ? GROUP BY photos.photoLocation", [model]);
+    res.send({ shoe });
 });
 
 const storage = multer.diskStorage({
@@ -32,11 +32,14 @@ router.post("/shoes", upload.array('file'), async (req, res) => {
     if (!req.body.brand || !req.body.name || !req.body.model || !req.body.colorway || !req.body.quantity || !req.body.size || !req.body.price) {
         return res.status(400).send({ message: "Missing inforamtion" })
     }
-    await db.run("INSERT INTO shoes(brand, name, model, colorway, quantity, size, price, forAuction) VALUES (?, ?, ?, ?, ?, ?, ?, 0)", [req.body.brand, req.body.name, req.body.model, req.body.colorway, req.body.quantity, req.body.size, req.body.price])
+    const sizes = req.body.size.split(", ")
+    sizes.forEach(async size => {
+        await db.run("INSERT INTO shoes(brand, name, model, colorway, quantity, size, price, forAuction) VALUES (?, ?, ?, ?, ?, ?, ?, 0)", [req.body.brand, req.body.name, req.body.model, req.body.colorway, req.body.quantity, size, req.body.price]) 
+    });
     req.files.forEach(async file => {
          console.log(file.path);
-         await db.run("INSERT INTO photos(model, forAuction, size, photoLocation) VALUES (?, 0, ?, ?)", [req.body.model, req.body.model, file.path]) 
-     });
+         await db.run("INSERT INTO photos(model, forAuction, photoLocation) VALUES (?, 0, ?)", [req.body.model, file.path]) 
+    });
     res.send({ message: "Shoe added successfully" });
 });
 

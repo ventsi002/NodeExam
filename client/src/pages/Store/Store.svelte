@@ -44,7 +44,8 @@
           console.log(shoe.name);
           
         }}>
-          <ShoeDisplay displayImage={shoe.photoLocation} shoeName={shoe.name} price={shoe.price}/>
+        
+          <ShoeDisplay displayImage={shoe.photoLocation.substring(16)} brand={shoe.brand} shoeName={shoe.name} price={shoe.price}/>
         </div>
         {/each}
     {:catch error}

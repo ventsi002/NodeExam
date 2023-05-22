@@ -72,8 +72,8 @@
 
 <style>
     body {
-        background-color: aquamarine;
-        min-height: 93vh;
+        font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+        min-height: 83vh;
         min-width: 95vw;
         display: flex;
         align-items: center;
@@ -92,6 +92,17 @@
     form {
         display: flex;
         flex-direction: column;
+    }
+
+    input
+    {
+        border: #cce3de solid 1px;
+        border-radius: 7px;
+    }
+
+    input:focus
+    {
+        border-color: #a4c3b2
     }
 
     .input-div {
@@ -116,16 +127,41 @@
         color: rgba(0, 0, 0, 0.5);
     }
 
+    a{
+        text-decoration: none;
+        color:#a4c3b2
+    }
+
+    a:hover
+    {
+        color:#cce3de
+    }
+
+
     .submit {
         margin-top: 4rem;
         padding: 0.6rem;
         width: 100%;
-        background: linear-gradient(to left, #1feed9, #26bbc0);
+        background-image: linear-gradient(to left, #cce3de, #a4c3b2)  ;
         cursor: pointer;
         color: white;
         font-size: 0.9rem;
         border-radius: 4px;
+        background-size: 300% 100%;
         border: none;
+
+        moz-transition: all .4s ease-in-out;
+        -o-transition: all .4s ease-in-out;
+        -webkit-transition: all .4s ease-in-out;
+        transition: all .4s ease-in-out;
+    }
+
+    .submit:hover {
+        background-position: 100% 0;
+        moz-transition: all .4s ease-in-out;
+        -o-transition: all .4s ease-in-out;
+        -webkit-transition: all .4s ease-in-out;
+        transition: all .4s ease-in-out;
     }
 
     p {

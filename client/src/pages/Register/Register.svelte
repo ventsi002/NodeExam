@@ -55,22 +55,24 @@
                     bind:value={password}
                 />
             </div>
-
-            <input
-                    type="text"
-                    class="firstName"
-                    placeholder="FirstName"
-                    id="firstName"
-                    bind:value={firstName}
-                />
-
+            <div class="input-div">
+                <input
+                        type="text"
+                        class="firstName"
+                        placeholder="First Name"
+                        id="firstName"
+                        bind:value={firstName}
+                    />
+            </div>
+            <div class="input-div">
             <input
                 type="text"
                 class="lastName"
-                placeholder="LastName"
+                placeholder="Last Name"
                 id="lastName"
                 bind:value={lastName}
             />
+            </div>
 
             <div class="input-div">
                 <input
@@ -81,7 +83,7 @@
                     bind:value={email}
                 />
             </div>
-
+            <div class="input-div">
             <input
                     type="text"
                     class="address"
@@ -89,6 +91,7 @@
                     id="address"
                     bind:value={address}
                 />
+            </div>
 
             <input
                 type="submit"
@@ -97,15 +100,15 @@
                 id="loginButton"
                 on:click={signup}
             />
-            <a href="/login"><p>Already have an account? log in</p></a>
+            <a href="/login"><p>Already have an account? Log in</p></a>
         </form>
     </main>
 </body>
 
 <style>
     body {
-        background-color: aquamarine;
-        min-height: 93vh;
+        font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+        min-height: 83vh;
         min-width: 95vw;
         display: flex;
         align-items: center;
@@ -126,17 +129,26 @@
         flex-direction: column;
     }
 
+    input
+    {
+        border: #cce3de solid 1px;
+        border-radius: 7px;
+    }
+
+    input:focus
+    {
+        border-color: #a4c3b2
+    }
+
     .input-div {
         position: relative;
     }
 
     form .input-div:first-child {
         padding-top: 1rem;
-        margin-bottom: 2rem;
     }
-
-    form .input-div:nth-child(2) {
-        margin-bottom: 2rem;
+    form .input-div {
+        margin-bottom: 1rem;
     }
 
     .input-div input {
@@ -152,16 +164,41 @@
         color: rgba(0, 0, 0, 0.5);
     }
 
+    a{
+        text-decoration: none;
+        color:#a4c3b2
+    }
+
+    a:hover
+    {
+        color:#cce3de
+    }
+
+
     .submit {
-        margin-top: 4rem;
+        margin-top: 1.5rem;
         padding: 0.6rem;
         width: 100%;
-        background: linear-gradient(to left, #1feed9, #26bbc0);
+        background-image: linear-gradient(to left, #cce3de, #a4c3b2)  ;
         cursor: pointer;
         color: white;
         font-size: 0.9rem;
         border-radius: 4px;
+        background-size: 300% 100%;
         border: none;
+
+        moz-transition: all .4s ease-in-out;
+        -o-transition: all .4s ease-in-out;
+        -webkit-transition: all .4s ease-in-out;
+        transition: all .4s ease-in-out;
+    }
+
+    .submit:hover {
+        background-position: 100% 0;
+        moz-transition: all .4s ease-in-out;
+        -o-transition: all .4s ease-in-out;
+        -webkit-transition: all .4s ease-in-out;
+        transition: all .4s ease-in-out;
     }
 
     p {
