@@ -1,8 +1,9 @@
 <script>
     import { Router, Route, Link } from "svelte-navigator";
-    import Login from "../pages/Login/Login.svelte";
-    import Store from "../pages/Store/Store.svelte";
+    import Login from "../Pages/Login/Login.svelte";
+    import Store from "../Pages/Store/Store.svelte";
     import Register from "../Pages/Register/Register.svelte";
+    import Admin from "../Pages/Admin/Admin.svelte";
     import Shoe from "../pages/Shoe/Shoe.svelte";
 </script>
 <Router>
@@ -55,6 +56,8 @@
     <Route path="signup">
         <Register/>
     </Route>
+    <Route path="admin">
+        <Admin/>
     <Route path="shoe">
         <Shoe/>
     </Route>
