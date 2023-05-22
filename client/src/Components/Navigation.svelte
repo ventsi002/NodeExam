@@ -3,6 +3,7 @@
     import Login from "../pages/Login/Login.svelte";
     import Store from "../pages/Store/Store.svelte";
     import Register from "../Pages/Register/Register.svelte";
+    import Shoe from "../pages/Shoe/Shoe.svelte";
 </script>
 <Router>
     <nav>
@@ -10,6 +11,7 @@
                 <Link to="/" style="text-decoration: none; margin-right: 15px;color: #cce3de;"><p>Home</p></Link>
                 <Link to="/" style="text-decoration: none; margin-right: 15px;color: #cce3de;"><p>Auction</p></Link>
                 <Link to="/" style="text-decoration: none;color: #cce3de;"><p>Contact us</p></Link>
+                <Link to="shoe" style="text-decoration: none;color: #cce3de;"><p>Shoe</p></Link>
             </div>
             <div>
                 <Link to="login"><svg
@@ -48,10 +50,13 @@
         <Store/>
     </Route>
     <Route path="login">
-    <Login/>
+        <Login/>
     </Route>
     <Route path="signup">
         <Register/>
+    </Route>
+    <Route path="shoe">
+        <Shoe/>
     </Route>
 </Router>
 
