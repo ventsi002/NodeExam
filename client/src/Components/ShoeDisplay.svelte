@@ -5,7 +5,7 @@
 </script>
 
 <div id="shoe-display">
-    <img src={displayImage}/>
+    <img src={displayImage} alt=""/>
     <p id="display-title">{shoeName}</p>
     <p id="price">price: {price}</p>
 </div>
