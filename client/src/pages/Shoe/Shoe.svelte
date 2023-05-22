@@ -22,14 +22,14 @@
         </div>
 
         <div class="sizes">
-            <label class="label-size">41<input type="radio" name="size" class="size"></label>
-            <label class="label-size">42<input type="radio" name="size" class="size"></label>
-            <label class="label-size">40<input type="radio" name="size" class="size"></label>
-            <label class="label-size">69<input type="radio" name="size" class="size"></label>
-            <label class="label-size">60<input type="radio" name="size" class="size"></label> 
-            <label class="label-size">50<input type="radio" name="size" class="size"></label>
-            <label class="label-size">30<input type="radio" name="size" class="size"></label>
-            <label class="label-size">00<input type="radio" name="size" class="size"></label>
+            <input type="radio" name="size" class="size" id="button1"><label for="button1" class="label-size">41</label>
+            <input type="radio" name="size" class="size" id="button2"><label for="button2" class="label-size">42</label>
+            <input type="radio" name="size" class="size" id="button3"><label for="button3" class="label-size">40</label>
+            <input type="radio" name="size" class="size" id="button4"><label for="button4" class="label-size">69</label>
+            <input type="radio" name="size" class="size" id="button5"><label for="button5" class="label-size">60</label> 
+            <input type="radio" name="size" class="size" id="button6"><label for="button6" class="label-size">50</label>
+            <input type="radio" name="size" class="size" id="button7"><label for="button7" class="label-size">30</label>
+            <input type="radio" name="size" class="size" id="button8"><label for="button8" class="label-size">00</label>
 
         </div>
     </div>
@@ -77,12 +77,11 @@
     }   
 
     .size {
-        
+        display: none;
     }
 
-    input[type=radio]:hover{
-        background-color: red;
-
+    input[type=radio]:checked + label.label-size{ 
+        background-color: ;
     }
    
 </style>
