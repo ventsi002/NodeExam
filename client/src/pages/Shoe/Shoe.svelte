@@ -14,11 +14,11 @@
     })
     .then((response) => response.json)
     .then((data) =>{
-        brand = brand.value;
-        name = name.value;
-        price = price.value;
-        model = model.value;
-        image = image.value
+        brand = data.brand;
+        name = data.name;
+        price = data.price;
+        // model = model.value;
+        // image = image.value
     })
 
     let mainImgSrc = 'https://asset.kompas.com/crops/U7wPX3XKjxv13BIwG5V7u8xh63M=/0x102:1085x825/750x500/data/photo/2021/08/22/612249c556579.jpg';
@@ -150,5 +150,8 @@
     {
         background-color: #cce3de;
     }
-   
+
+    img {
+        cursor: pointer;
+    }
 </style>
