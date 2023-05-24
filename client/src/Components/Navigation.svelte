@@ -59,7 +59,7 @@
     <Route path="admin">
         <Admin/>
     </Route>
-    <Route path="shoe">
+    <Route path="shoes/:model" >
         <Shoe/>
     </Route>
 </Router>

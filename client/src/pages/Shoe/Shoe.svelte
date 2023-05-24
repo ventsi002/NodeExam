@@ -1,41 +1,76 @@
 <script>
+    import { each } from "svelte/internal";
+
+    let shoeInformation = {}
+    let shoe = {
+        brand: null,
+        name: null,
+        price: null,
+        model: null,
+    }
+    let photos = []
+    let sizes = []
+
+    let url = window.location.href.substring(28);
+
+    async function loadShoe()
+    {
+      const response = await fetch(`http://localhost:8080/shoes/${url}`, {
+        method: "GET",
+        credentials: "include",
+      })
+      const data = await response.json()
+      shoeInformation = data
+      shoe = shoeInformation.shoe
+      photos = shoeInformation.photos
+      sizes = shoeInformation.sizes
+      photos.forEach(photo => {
+        photo.photoLocation = photo.photoLocation.substring(16)
+        
+      });
+    }
+
+    loadShoe()
 
 </script>
-
 <div class="parent">
-    <!-- <div class="image">
-        <h1>snimka na hui</h1>
-    </div> -->
-    <img width="512px" height="512px" src="https://asset.kompas.com/crops/U7wPX3XKjxv13BIwG5V7u8xh63M=/0x102:1085x825/750x500/data/photo/2021/08/22/612249c556579.jpg" alt="cactus" >
+    
+    {#await photos}
+    {:then data}
     <div class="image">
-        <img width="160px" height="170px" src="https://zdravnitza.com/images/custom/rqpa2.jpg" alt="hui">
-        <img width="160px" height="170px" src="https://zdravnitza.com/images/custom/rqpa2.jpg" alt="hui">
-        <img width="160px" height="170px" src="https://zdravnitza.com/images/custom/rqpa2.jpg" alt="hui">
+        {#each data.slice(1) as photo}
+            <img width="512px" height="512px" src={data[0].photoLocation} alt="main-photo" >
+        {/each}
+        {#each data.slice(1) as photo}
+            <div class="secondary-images">
+                <img width="160px" height="170px" src={photo.photoLocation} alt="secondary-photos">
+            </div>
+        {/each}
     </div>
+    {/await}
+    
+        <div class="info-size">
+            <div class="info">
+                <h1>{shoe.brand}</h1>
+                <h2>{shoe.name}</h2>
+                <h2>€{shoe.price}</h2>
+                <h3>{shoe.model}</h3>
+            </div>
+            <div class="sizes">
+                <input type="radio" name="size" class="size" id="button1"><label for="button1" class="label-size">EU 41</label>
+                <input type="radio" name="size" class="size" id="button2"><label for="button2" class="label-size">EU 42</label>
+                   <input type="radio" name="size" class="size" id="button3"><label for="button3" class="label-size">EU 40</label>
+                <input type="radio" name="size" class="size" id="button4"><label for="button4" class="label-size">EU 69</label>
+                <input type="radio" name="size" class="size" id="button5"><label for="button5" class="label-size">EU 60</label> 
+                <input type="radio" name="size" class="size" id="button6"><label for="button6" class="label-size">EU 50</label>
+                <input type="radio" name="size" class="size" id="button7"><label for="button7" class="label-size">EU 30</label>
+                <input type="radio" name="size" class="size" id="button8"><label for="button8" class="label-size">EU 00</label>
 
-    <div class="info-size">
-        <div class="info">
-            <h1>Brand</h1>
-            <h2>name</h2>
-            <h2>cena</h2>
-            <h3>model</h3>
-        </div>
-
-        <div class="sizes">
-            <input type="radio" name="size" class="size" id="button1"><label for="button1" class="label-size">EU 41</label>
-            <input type="radio" name="size" class="size" id="button2"><label for="button2" class="label-size">EU 42</label>
-            <input type="radio" name="size" class="size" id="button3"><label for="button3" class="label-size">EU 40</label>
-            <input type="radio" name="size" class="size" id="button4"><label for="button4" class="label-size">EU 69</label>
-            <input type="radio" name="size" class="size" id="button5"><label for="button5" class="label-size">EU 60</label> 
-            <input type="radio" name="size" class="size" id="button6"><label for="button6" class="label-size">EU 50</label>
-            <input type="radio" name="size" class="size" id="button7"><label for="button7" class="label-size">EU 30</label>
-            <input type="radio" name="size" class="size" id="button8"><label for="button8" class="label-size">EU 00</label>
-
+            </div>
         </div>
     </div>
-</div>
-<div id="button-wrapper">
-    <button>Buy</button>
+    <div id="button-wrapper">
+        <button>Buy</button>
 </div>
 <style>
 
@@ -65,7 +100,14 @@
 
     .image {
         display: flex;
+        align-items: flex-start;
+    }
+
+    .secondary-images {
+        display: flex;
         flex-direction: column;
+        align-items: flex-start;
+        margin-left: 10px;
     }
 
     .label-size {

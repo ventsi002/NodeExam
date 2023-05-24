@@ -1,5 +1,6 @@
 <script>
-    import Navigation from "../../Components/Navigation.svelte";
+    import { Link, Router } from "svelte-navigator";
+import Navigation from "../../Components/Navigation.svelte";
     import ShoeDisplay from "../../Components/ShoeDisplay.svelte";
   
     let selectedFile;
@@ -29,27 +30,30 @@
       })
       const data = await response.json()
       shoes = data
-      console.log(shoes);
     }
     loadShoes()
   </script>
   
-<div id="shoes"> 
+<div id="shoes">
+  <Router>
   {#await shoes}
     <p>Loading...</p>
       {:then data}
         {#each data as shoe}
+        
         <div on:click = {()=>
         {
           console.log(shoe.name);
           
         }}>
-        
+        <Link to="shoes/{shoe.model}">
           <ShoeDisplay displayImage={shoe.photoLocation.substring(16)} brand={shoe.brand} shoeName={shoe.name} price={shoe.price}/>
+        </Link>
         </div>
         {/each}
     {:catch error}
     <p>Error: {error.message}</p>
 {/await}
+</Router>
 </div>
   
