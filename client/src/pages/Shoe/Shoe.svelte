@@ -13,6 +13,11 @@
 
     let url = window.location.href.substring(28);
 
+    function swap(mainPhotoUrl, clickedPhotoUrl)
+    {
+    
+    }
+
     async function loadShoe()
     {
       const response = await fetch(`http://localhost:8080/shoes/${url}`, {
@@ -43,7 +48,12 @@
                 {#if index === 0}
                     <img class="main-photo" width="512px" height="512px" src={photo.photoLocation} alt="main-photo" >
                 {:else}
-                    <img width="100px" height="100px" src={photo.photoLocation} alt="secondary-photos">
+                    <img on:click={() => 
+                        {
+                            [data[0].photoLocation, photo.photoLocation] = [photo.photoLocation, data[0].photoLocation]
+
+                        }
+                    } width="100px" height="100px" src={photo.photoLocation} alt="secondary-photos">
                 {/if}
                 {/each}
             </div>
@@ -96,18 +106,18 @@
     .info {
         justify-self: flex-end;
         text-align: center;
-        width: 130%;
+        width: 100%;
     }
 
     .sizes {
         display: flex;
+        justify-content:flex;
         flex-wrap: wrap;
-        margin-left: 20px;
     }
 
     .main-photo
     {
-        margin-right: 10px
+        margin-right: 30px
     }
 
     .info-size {
