@@ -1,35 +1,70 @@
 <script>
+    let brand;
+    let name;
+    let price;
+    let model;
+    let image
 
+    fetch("http://localhost:8080/shoes/:model", {
+        method: "GET",
+        credentials: "include",
+        headers: {
+            "Content-type": "application/json",
+        },
+    })
+    .then((response) => response.json)
+    .then((data) =>{
+        brand = brand.value;
+        name = name.value;
+        price = price.value;
+        model = model.value;
+        image = image.value
+    })
+
+    let mainImgSrc = 'https://asset.kompas.com/crops/U7wPX3XKjxv13BIwG5V7u8xh63M=/0x102:1085x825/750x500/data/photo/2021/08/22/612249c556579.jpg';
+    let smallImg1Src = 'https://d3d173w0vohr0k.cloudfront.net/bg-bg/vegetables/1518693974/cartofi-1508336223_tmb_tmb.jpg'
+    let smallImg2Src = 'https://zdravnitza.com/images/custom/rqpa2.jpg';
+    let smallImg3Src = 'https://genkoenchev.com/image/cache/kategorii/patladjan1-600x315.jpg';
+
+
+    function swap1() {
+        [smallImg1Src, mainImgSrc] = [mainImgSrc, smallImg1Src];
+    }
+
+    function swap2() {
+        [smallImg2Src, mainImgSrc] = [mainImgSrc, smallImg2Src];
+    }
+
+    function swap3() {
+        [smallImg3Src, mainImgSrc] = [mainImgSrc, smallImg3Src];
+    }
 </script>
 
 <div class="parent">
-    <!-- <div class="image">
-        <h1>snimka na hui</h1>
-    </div> -->
-    <img width="512px" height="512px" src="https://asset.kompas.com/crops/U7wPX3XKjxv13BIwG5V7u8xh63M=/0x102:1085x825/750x500/data/photo/2021/08/22/612249c556579.jpg" alt="cactus" >
+    <img width="512px" height="512px" src="{mainImgSrc}" alt="cactus" >
     <div class="image">
-        <img width="160px" height="170px" src="https://zdravnitza.com/images/custom/rqpa2.jpg" alt="hui">
-        <img width="160px" height="170px" src="https://zdravnitza.com/images/custom/rqpa2.jpg" alt="hui">
-        <img width="160px" height="170px" src="https://zdravnitza.com/images/custom/rqpa2.jpg" alt="hui">
+        <img width="160px" height="170px" src="{smallImg1Src}" on:click={swap1}  alt="hui">
+        <img width="160px" height="170px" src="{smallImg2Src}" on:click={swap2} alt="hui">
+        <img width="160px" height="170px" src="{smallImg3Src}" on:click={swap3} alt="hui">
     </div>
 
     <div class="info-size">
         <div class="info">
-            <h1>Brand</h1>
-            <h2>name</h2>
-            <h2>cena</h2>
-            <h3>model</h3>
+            <h1>{brand}</h1>
+            <h2>{name}</h2>
+            <h2>{price}</h2>
+            <h3>{model}</h3>
         </div>
 
         <div class="sizes">
-            <input type="radio" name="size" class="size" id="button1"><label for="button1" class="label-size">EU 41</label>
-            <input type="radio" name="size" class="size" id="button2"><label for="button2" class="label-size">EU 42</label>
+            <input type="radio" name="size" class="size" id="button1"><label for="button1" class="label-size">EU 38</label>
+            <input type="radio" name="size" class="size" id="button2"><label for="button2" class="label-size">EU 39</label>
             <input type="radio" name="size" class="size" id="button3"><label for="button3" class="label-size">EU 40</label>
-            <input type="radio" name="size" class="size" id="button4"><label for="button4" class="label-size">EU 69</label>
-            <input type="radio" name="size" class="size" id="button5"><label for="button5" class="label-size">EU 60</label> 
-            <input type="radio" name="size" class="size" id="button6"><label for="button6" class="label-size">EU 50</label>
-            <input type="radio" name="size" class="size" id="button7"><label for="button7" class="label-size">EU 30</label>
-            <input type="radio" name="size" class="size" id="button8"><label for="button8" class="label-size">EU 00</label>
+            <input type="radio" name="size" class="size" id="button4"><label for="button4" class="label-size">EU 41</label>
+            <input type="radio" name="size" class="size" id="button5"><label for="button5" class="label-size">EU 42</label> 
+            <input type="radio" name="size" class="size" id="button6"><label for="button6" class="label-size">EU 43</label>
+            <input type="radio" name="size" class="size" id="button7"><label for="button7" class="label-size">EU 44</label>
+            <input type="radio" name="size" class="size" id="button8"><label for="button8" class="label-size">EU 45</label>
 
         </div>
     </div>
@@ -53,7 +88,7 @@
     .sizes {
         display: flex;
         flex-wrap: wrap;
-        /* flex-direction: column; */
+        margin-left: 20px;
     }
 
     .info-size {
@@ -109,6 +144,11 @@
 
     input[type=radio]:checked + label.label-size{ 
         border: 1px solid #a4c3b2
+    }
+
+    input[type=radio]:hover + label.label-size
+    {
+        background-color: #cce3de;
     }
    
 </style>
