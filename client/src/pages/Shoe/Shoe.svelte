@@ -33,6 +33,7 @@
     loadShoe()
 
 </script>
+
 <div class="parent">
     
     {#await photos}
@@ -66,7 +67,6 @@
                     {/if}
                 {/each}
         {/await}
-
             </div>
         </div>
     </div>
@@ -102,7 +102,7 @@
     .sizes {
         display: flex;
         flex-wrap: wrap;
-        /* flex-direction: column; */
+        margin-left: 20px;
     }
 
     .main-photo
@@ -175,11 +175,11 @@
         cursor: no-drop;
         background-color: #00000000;
     }
-
     input[type=radio] + label.unavailable
     {
         color: #cce3de;
     }
-
-   
+    img {
+        cursor: pointer;
+    }
 </style>
