@@ -13,7 +13,7 @@ router.get("/shoes", async (req, res) => {
 router.get("/shoes/:model", async (req, res) => {
     const model = req.params.model
     const shoe = await db.get("SELECT * FROM shoes WHERE shoes.model = ? LIMIT 1", [model]);
-    const sizes = await db.all("SELECT size FROM shoes WHERE forAuction = 0 AND model = ?", [model]);
+    const sizes = await db.all("SELECT size, quantity FROM shoes WHERE forAuction = 0 AND model = ?", [model]);
     const photos = await db.all("SELECT photoLocation FROM photos WHERE forAuction = 0 AND model = ? GROUP BY photos.photoLocation", [model]);
     res.send({ shoe, sizes, photos });
 });

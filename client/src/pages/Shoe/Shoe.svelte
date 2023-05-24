@@ -36,59 +36,78 @@
 <div class="parent">
     
     {#await photos}
-    {:then data}
-    <div class="image">
-        {#each data.slice(1) as photo}
-            <img width="512px" height="512px" src={data[0].photoLocation} alt="main-photo" >
-        {/each}
-        {#each data.slice(1) as photo}
-            <div class="secondary-images">
-                <img width="160px" height="170px" src={photo.photoLocation} alt="secondary-photos">
+        {:then data}
+            <div class="image">
+                {#each data as photo, index}
+                {#if index === 0}
+                    <img class="main-photo" width="512px" height="512px" src={photo.photoLocation} alt="main-photo" >
+                {:else}
+                    <img width="100px" height="100px" src={photo.photoLocation} alt="secondary-photos">
+                {/if}
+                {/each}
             </div>
-        {/each}
-    </div>
     {/await}
     
-        <div class="info-size">
-            <div class="info">
-                <h1>{shoe.brand}</h1>
-                <h2>{shoe.name}</h2>
-                <h2>€{shoe.price}</h2>
-                <h3>{shoe.model}</h3>
-            </div>
-            <div class="sizes">
-                <input type="radio" name="size" class="size" id="button1"><label for="button1" class="label-size">EU 41</label>
-                <input type="radio" name="size" class="size" id="button2"><label for="button2" class="label-size">EU 42</label>
-                   <input type="radio" name="size" class="size" id="button3"><label for="button3" class="label-size">EU 40</label>
-                <input type="radio" name="size" class="size" id="button4"><label for="button4" class="label-size">EU 69</label>
-                <input type="radio" name="size" class="size" id="button5"><label for="button5" class="label-size">EU 60</label> 
-                <input type="radio" name="size" class="size" id="button6"><label for="button6" class="label-size">EU 50</label>
-                <input type="radio" name="size" class="size" id="button7"><label for="button7" class="label-size">EU 30</label>
-                <input type="radio" name="size" class="size" id="button8"><label for="button8" class="label-size">EU 00</label>
+    <div class="info-size">
+        <div class="info">
+            <h1>{shoe.brand}</h1>
+            <h2>{shoe.name}</h2>
+            <h2>€{shoe.price}</h2>
+        </div>
+    <div class="sizes">
+        {#await sizes}
+            {:then data}
+                {#each data as size}
+                    {#if size.quantity !== 0}
+                        <input type="radio" name="size" class="size" id="button{size.size}"><label for="button{size.size}" class="label-size">EU {size.size}</label>
+                    {/if}
+                    {#if size.quantity === 0}
+                        <input type="radio" name="size" class="size" disabled id="button{size.size}"><label for="button{size.size}" class="label-size unavailable">EU {size.size}</label>
+                    {/if}
+                {/each}
+        {/await}
 
             </div>
         </div>
     </div>
-    <div id="button-wrapper">
-        <button>Buy</button>
+<div id="button-wrapper">
+    <button>Buy</button>
 </div>
+<div id="description">
+    <p>Model number: {shoe.model}</p>
+    <p>Colorway: {shoe.colorway}</p>
+</div>
+
 <style>
 
+    #description
+    {
+        position: absolute;
+        right: 0;
+        font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+        margin-right: 24.2vw;
+    }
     .parent {
         font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-        display: flex;
+        display: inline-flex;
         color: #2f3e46;
     }
 
     .info {
         justify-self: flex-end;
         text-align: center;
+        width: 130%;
     }
 
     .sizes {
         display: flex;
         flex-wrap: wrap;
         /* flex-direction: column; */
+    }
+
+    .main-photo
+    {
+        margin-right: 10px
     }
 
     .info-size {
@@ -99,15 +118,7 @@
     }
 
     .image {
-        display: flex;
-        align-items: flex-start;
-    }
-
-    .secondary-images {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        margin-left: 10px;
+        align-items: stretch
     }
 
     .label-size {
@@ -127,8 +138,8 @@
     {
         display: flex;
         justify-content: right;
-        margin-top: -10vh;
-        margin-right: 18vw;
+        margin-top: -25vh;
+        margin-right: 23vw;
     }
     button
     {
@@ -150,7 +161,25 @@
     }
 
     input[type=radio]:checked + label.label-size{ 
-        border: 1px solid #a4c3b2
+        border: 1px solid #a4c3b2;
+        background-color: #cce3de;
     }
+
+    input[type=radio]:hover + label.label-size
+    {
+        background-color: #cce3de;
+    }
+
+    input[type=radio]:hover + label.unavailable
+    {
+        cursor: no-drop;
+        background-color: #00000000;
+    }
+
+    input[type=radio] + label.unavailable
+    {
+        color: #cce3de;
+    }
+
    
 </style>
