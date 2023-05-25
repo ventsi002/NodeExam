@@ -5,6 +5,7 @@
     import Register from "../Pages/Register/Register.svelte";
     import Admin from "../Pages/Admin/Admin.svelte";
     import Shoe from "../Pages/Shoe/Shoe.svelte";
+    import ForgottenPassword from "../Pages/ForgottenPass/ForgottenPassword.svelte";
 </script>
 <Router>
     <nav>
@@ -60,6 +61,9 @@
     </Route>
     <Route path="shoes/:model" >
         <Shoe/>
+    </Route>
+    <Route path="forgotPassword">
+        <ForgottenPassword/>
     </Route>
 </Router>
 

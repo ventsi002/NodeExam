@@ -59,6 +59,15 @@ CREATE TABLE IF NOT EXISTS photos(
     photoLocation TEXT PRIMARY KEY,
     FOREIGN KEY (model, forAuction, size) REFERENCES shoes(model, forAuction, size)
 );
+
+CREATE TABLE IF NOT EXISTS orders(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username VARCHAR(32) NOT NULL,
+    model VARCHAR(16) NOT NULL,
+    size VARCHAR(4) NOT NULL,
+    FOREIGN KEY (model, size) REFERENCES shoes(model, size)
+    FOREIGN KEY (username) REFERENCES users(username)
+);
 `);
 
 db.exec(`INSERT INTO roles (role) VALUES ('user');`);

@@ -13,11 +13,6 @@
 
     let url = window.location.href.substring(28);
 
-    function swap(mainPhotoUrl, clickedPhotoUrl)
-    {
-    
-    }
-
     async function loadShoe()
     {
       const response = await fetch(`http://localhost:8080/shoes/${url}`, {
@@ -193,3 +188,4 @@
         cursor: pointer;
     }
 </style>
+
