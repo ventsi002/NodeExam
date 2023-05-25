@@ -1,4 +1,8 @@
 <script>
+// @ts-nocheck
+
+    import { append } from "svelte/internal";
+
     let brand;
     let name;
     let model;
@@ -7,11 +11,11 @@
     let size;
     let price;
     let file;
+    const formData = new FormData();
 
     function addShoe(event) {
         event.preventDefault();
 
-        const formData = new FormData();
         formData.append('brand', brand);
         formData.append('name', name);
         formData.append('model', model);
@@ -19,15 +23,13 @@
         formData.append('quantity', quantity);
         formData.append('size', size);
         formData.append('price', price);
-        formData.append('file', file);
-
+        console.log(formData.get("file"));
         fetch("http://localhost:8080/shoes", {
             method: "POST",
             credentials: "include",
             body: formData
         })
-
-        console.log(formData)
+        formData.set("file", null)
     }
 
 </script>
@@ -105,6 +107,20 @@
                             type="file"
                             class="file"
                             id="file"
+                            multiple
+                            on:change={(event)=>
+                            {
+                                console.log(formData.get("file"));
+                                
+                                file = Array.from(event.target.files).slice(0, 4)
+                                console.log(file);
+                                if(formData.get("file") === null)
+                                {
+                                    for (let i = 0; i < file.length; ++i) {
+                                        formData.append("file", file[i], file[i].name);
+                                    }
+                                }   
+                            }}
                             bind:value={file}
                         />
                     
