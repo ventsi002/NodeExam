@@ -1,9 +1,11 @@
 import dotenv from "dotenv"
+import helmet from "helmet"
 dotenv.config();
 
 import express, { json } from "express";
 const app = express();
 app.use(express.json());
+app.use(helmet())
 
 import cors from "cors"
 app.use(cors({

@@ -64,7 +64,7 @@
                 id="loginButton"
                 on:click={login}
             />
-            <a href="/login"><p>Forgot Password?</p></a>
+            <a href="/forgotPassword"><p>Forgot Password?</p></a>
             <a href="/signup"><p>Don't have an account? Sign up</p></a>
         </form>
     </main>

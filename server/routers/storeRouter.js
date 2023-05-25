@@ -37,6 +37,7 @@ router.post("/shoes", upload.array('file'), async (req, res) => {
     sizes.forEach(async size => {
         await db.run("INSERT INTO shoes(brand, name, model, colorway, quantity, size, price, forAuction) VALUES (?, ?, ?, ?, ?, ?, ?, 0)", [req.body.brand, req.body.name, req.body.model, req.body.colorway, req.body.quantity, size, req.body.price]) 
     });
+    console.log(req.files)
     req.files.forEach(async file => {
          console.log(file.path);
          await db.run("INSERT INTO photos(model, forAuction, photoLocation) VALUES (?, 0, ?)", [req.body.model, file.path]) 

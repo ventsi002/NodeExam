@@ -25,6 +25,11 @@ body{
   color: #cce3de;
 }
 
+a
+{
+  text-decoration: none;
+}
+
 #shoes
 {
   display: flex;
