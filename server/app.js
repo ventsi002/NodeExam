@@ -13,6 +13,14 @@ app.use(cors({
     origin: true
 }));
 
+import session from "express-session";
+app.use(session({
+    secret: process.env.SECRET_KEY,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }
+}));
+
 import authRouter from "./routers/authRouter.js";
 app.use(authRouter);
 

@@ -1,6 +1,6 @@
 <script>
     import { useNavigate, useLocation } from "svelte-navigator";
-    import { user } from "../../store/users.js";
+    import { user} from "../../store/users.js";
     import Navigation from "../../Components/Navigation.svelte";
 
 
@@ -9,6 +9,7 @@
 
     let username;
     let password;
+    let role;
 
     function login(event) {
         event.preventDefault();
@@ -23,9 +24,12 @@
                 username: username,
                 password: password,
             }),
-        }).then((response) => {
+        }).then(async (response) => {
+            role = await response.json()
             if (response.status === 200) {
-                user.set({ username, password });
+                // @ts-ignore
+                user.set({ username, password, role });
+                console.log(role);
                 const from =
                     ($location.state && $location.state.from) || "/";
                 navigate(from, { replace: true });
