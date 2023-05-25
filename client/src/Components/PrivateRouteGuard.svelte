@@ -11,13 +11,19 @@
 			replace: true,
 		});
 	}
-
-    $: if ($user) {
+	
+    $: if ($user && $user.role.role !== "admin") {
         navigate("/", { replace: true });
-  }
+  	}
+
+	$: if ($user !== null && $user.role.role === "admin")
+	{
+		navigate("/admin", { replace: true });
+	}
+
 </script>
 
-{#if $user.role.role === "admin"}
+{#if $user !== null && $user.role.role === "admin"}
 	<slot />
 {:else}
     <p>Access denied.</p>

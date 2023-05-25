@@ -1,5 +1,6 @@
 <script>
     import { each } from "svelte/internal";
+    import { user } from "../../store/users.js"
 
     let shoeInformation = {}
     let shoe = {
@@ -10,6 +11,8 @@
     }
     let photos = []
     let sizes = []
+    let pickedSize
+
 
     let url = window.location.href.substring(28);
 
@@ -28,6 +31,25 @@
         photo.photoLocation = photo.photoLocation.substring(16)
         
       });
+    }
+
+    function orderShoe()
+    {
+        let username = $user.username
+        const response = fetch(`http://localhost:8080/orders`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+        "Content-Type": "application/json",
+        },
+        body:JSON.stringify(
+            {
+                username: username,
+                model: shoe.model,
+                size: pickedSize
+            }
+        )
+      })
     }
 
     loadShoe()
@@ -65,7 +87,7 @@
             {:then data}
                 {#each data as size}
                     {#if size.quantity !== 0}
-                        <input type="radio" name="size" class="size" id="button{size.size}"><label for="button{size.size}" class="label-size">EU {size.size}</label>
+                        <input value={size.size} bind:group={pickedSize} type="radio" name="size" class="size" id="button{size.size}"><label for="button{size.size}" class="label-size">EU {size.size}</label>
                     {/if}
                     {#if size.quantity === 0}
                         <input type="radio" name="size" class="size" disabled id="button{size.size}"><label for="button{size.size}" class="label-size unavailable">EU {size.size}</label>
@@ -76,7 +98,7 @@
         </div>
     </div>
 <div id="button-wrapper">
-    <button>Buy</button>
+    <button on:click={orderShoe}>Buy</button>
 </div>
 <div id="description">
     <p>Model number: {shoe.model}</p>

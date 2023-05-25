@@ -57,4 +57,11 @@ router.delete("/shoes/:model", async (req, res) => {
     res.send({ message: "Shoe deleted successfully" });
 });
 
+router.post("/orders", async (req,res) =>
+{
+    console.log(req.body);
+    await db.run("INSERT INTO orders(username, model, size) VALUES (?, ?, ?)", [req.body.username, req.body.model, req.body.size])
+    res.send({message: "created order"})
+})
+
 export default router;

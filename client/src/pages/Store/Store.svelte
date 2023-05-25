@@ -1,8 +1,6 @@
 <script>
     import { Link, Router } from "svelte-navigator";
-import Navigation from "../../Components/Navigation.svelte";
     import ShoeDisplay from "../../Components/ShoeDisplay.svelte";
-	import { user } from "../../store/users.js";
   
     let selectedFile;
     const formData = new FormData();
@@ -33,7 +31,6 @@ import Navigation from "../../Components/Navigation.svelte";
       shoes = data
     }
     loadShoes()
-    console.log($user.role.role)
   </script>
   
 <div id="shoes">
