@@ -6,11 +6,8 @@
     import Register from "../Pages/Register/Register.svelte";
     import Admin from "../Pages/Admin/Admin.svelte";
     import Shoe from "../Pages/Shoe/Shoe.svelte";
-<<<<<<< HEAD
     import ForgottenPassword from "../Pages/ForgottenPass/ForgottenPassword.svelte";
-=======
     import AddShoe from "../pages/AddShoe/AddShoe.svelte";
->>>>>>> 86c11a7ef95945560baea214274031d1926d5507
 </script>
 <Router>
     <nav>
