@@ -2,10 +2,15 @@
     import { Router, Route, Link } from "svelte-navigator";
     import Login from "../Pages/Login/Login.svelte";
     import Store from "../Pages/Store/Store.svelte";
+    // @ts-ignore
     import Register from "../Pages/Register/Register.svelte";
     import Admin from "../Pages/Admin/Admin.svelte";
     import Shoe from "../Pages/Shoe/Shoe.svelte";
+<<<<<<< HEAD
     import ForgottenPassword from "../Pages/ForgottenPass/ForgottenPassword.svelte";
+=======
+    import AddShoe from "../pages/AddShoe/AddShoe.svelte";
+>>>>>>> 86c11a7ef95945560baea214274031d1926d5507
 </script>
 <Router>
     <nav>
@@ -64,6 +69,9 @@
     </Route>
     <Route path="forgotPassword">
         <ForgottenPassword/>
+    </Route>
+    <Route path="admin/shoes/addShoes">
+        <AddShoe/>
     </Route>
 </Router>
 
