@@ -2,9 +2,11 @@
     import { Router, Route, Link } from "svelte-navigator";
     import Login from "../Pages/Login/Login.svelte";
     import Store from "../Pages/Store/Store.svelte";
+    // @ts-ignore
     import Register from "../Pages/Register/Register.svelte";
     import Admin from "../Pages/Admin/Admin.svelte";
     import Shoe from "../Pages/Shoe/Shoe.svelte";
+    import AddShoe from "../pages/AddShoe/AddShoe.svelte";
 </script>
 <Router>
     <nav>
@@ -60,6 +62,9 @@
     </Route>
     <Route path="shoes/:model" >
         <Shoe/>
+    </Route>
+    <Route path="admin/shoes/addShoes">
+        <AddShoe/>
     </Route>
 </Router>
 
