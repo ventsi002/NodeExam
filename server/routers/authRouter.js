@@ -31,7 +31,7 @@ router.post("/auth/signup", async (req, res) => {
         return res.status(400).send({ message: "Form not completed" });
     }
     const password = encrypt(req.body.password);
-    await db.run("INSERT INTO users(username, password, firstName, lastName, email, address, role) VALUES (?, ?, ?, ?, ?, ?, 0);", [req.body.username, password, req.body.firstName, req.body.lastName, req.body.email, req.body.address]);
+    await db.run("INSERT INTO users(username, password, firstName, lastName, email, address, role) VALUES (?, ?, ?, ?, ?, ?, 1);", [req.body.username, password, req.body.firstName, req.body.lastName, req.body.email, req.body.address]);
     res.send({ message: "User created successfully" });
 });
 
@@ -45,8 +45,10 @@ router.post("/auth/login", async (req, res) => {
     if (userFound) {
         const passwordsMatch = req.body.password === decrypt(userFound.password)
         if (passwordsMatch) {
-            //req.session.username = userFound.username
-            res.send({ message: "Logged in" })
+            const role = await db.get("SELECT roles.role FROM roles JOIN users ON users.role = roles.id WHERE users.username = ?", [req.body.username]);
+            req.session.username = userFound.username;
+            req.session.role = role.role;
+            res.send(role);
         }
         else {
             res.status(400).send({ message: "Wrong password!" })

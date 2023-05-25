@@ -4,7 +4,7 @@ import db from "./connection.js";
 db.exec(`
 
 CREATE TABLE IF NOT EXISTS roles(
-    id TINYINT PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     role VARCHAR(10)
 );
 

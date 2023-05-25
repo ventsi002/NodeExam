@@ -8,6 +8,8 @@
     import Shoe from "../Pages/Shoe/Shoe.svelte";
     import ForgottenPassword from "../Pages/ForgottenPass/ForgottenPassword.svelte";
     import AddShoe from "../pages/AddShoe/AddShoe.svelte";
+    import PrivateRoute from "./PrivateRoute.svelte";
+
 </script>
 <Router>
     <nav>
@@ -15,6 +17,7 @@
                 <Link to="/" style="text-decoration: none; margin-right: 15px;color: #cce3de;"><p>Home</p></Link>
                 <Link to="/" style="text-decoration: none; margin-right: 15px;color: #cce3de;"><p>Auction</p></Link>
                 <Link to="/" style="text-decoration: none;color: #cce3de;"><p>Contact us</p></Link>
+                <Link to="admin" style="text-decoration: none;color: #cce3de;"><p>Admin</p></Link>
             </div>
             <div>
                 <Link to="login"><svg
@@ -58,18 +61,18 @@
     <Route path="signup">
         <Register/>
     </Route>
-    <Route path="admin">
+    <PrivateRoute path="admin">
         <Admin/>
-    </Route>
+    </PrivateRoute>
     <Route path="shoes/:model" >
         <Shoe/>
     </Route>
     <Route path="forgotPassword">
         <ForgottenPassword/>
     </Route>
-    <Route path="admin/shoes/addShoes">
+    <PrivateRoute path="admin/shoes/addShoes">
         <AddShoe/>
-    </Route>
+    </PrivateRoute>
 </Router>
 
 
