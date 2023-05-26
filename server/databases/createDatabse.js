@@ -65,6 +65,7 @@ CREATE TABLE IF NOT EXISTS orders(
     username VARCHAR(32) NOT NULL,
     model VARCHAR(16) NOT NULL,
     size VARCHAR(4) NOT NULL,
+    status VARCHAR(16) NOT NULL,
     FOREIGN KEY (model, size) REFERENCES shoes(model, size)
     FOREIGN KEY (username) REFERENCES users(username)
 );

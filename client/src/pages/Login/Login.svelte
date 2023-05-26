@@ -1,8 +1,6 @@
 <script>
     import { useNavigate, useLocation } from "svelte-navigator";
-    import { user} from "../../store/users.js";
-    import Navigation from "../../Components/Navigation.svelte";
-
+    import { user } from "../../store/users.js";
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -28,10 +26,18 @@
             role = await response.json()
             if (response.status === 200) {
                 user.set({ username, password, role });
-                console.log(role);
                 const from =
                     ($location.state && $location.state.from) || "/";
-                navigate(from, { replace: true });
+                if(role.role === "admin")
+                {
+                    let admin = ($location.state && $location.state.from) || "/admin"
+                    console.log(admin);
+                    navigate(admin, { replace: true })
+                }
+                else
+                {
+                    navigate(from, { replace: true });
+                }
             }
         });
     }
