@@ -31,7 +31,7 @@ import auctionRouter from "./routers/auctionRouter.js";
 app.use(auctionRouter);
 
 import emailRouter from "./routers/emailRouter.js";
-app.use(emailRouter)
+app.use(emailRouter);
 
 
 const PORT = process.env.PORT || 8080;
