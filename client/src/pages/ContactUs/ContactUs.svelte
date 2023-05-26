@@ -1,82 +1,81 @@
 <script>
     import { useNavigate, useLocation } from "svelte-navigator";
-    import { user} from "../../store/users.js";
-    import Navigation from "../../Components/Navigation.svelte";
-
+    let from;
+    let subject;
+    let text;
 
     const navigate = useNavigate();
     const location = useLocation();
 
-    let username;
-    let password;
-    let role;
-
-    function login(event) {
+    function sendEmail(event) {
         event.preventDefault();
-
-        fetch("http://localhost:8080/auth/login", {
+        fetch("http://localhost:8080/contact", {
             method: "POST",
             credentials: "include",
             headers: {
                 "Content-type": "application/json",
             },
             body: JSON.stringify({
-                username: username,
-                password: password,
+                from: from,
+                subject: subject,
+                text: text,
             }),
-        }).then(async (response) => {
-            role = await response.json()
+        }).then((response) => {
             if (response.status === 200) {
-                user.set({ username, password, role });
-                console.log(role);
                 const from =
-                    ($location.state && $location.state.from) || "/";
+                    ($location.state && $location.state.from) ||
+                    window.history.back();
                 navigate(from, { replace: true });
             }
         });
     }
 </script>
 
-<!-- <Navigation/> -->
 <body>
     <main>
         <form>
             <div class="input-div">
                 <input
-                    type="text"
-                    class="username"
-                    placeholder="Username"
-                    id="username"
-                    bind:value={username}
+                    type="email"
+                    class="email"
+                    placeholder="Email"
+                    id="email"
+                    bind:value={from}
                 />
             </div>
             <div class="input-div">
                 <input
-                    type="password"
-                    class="password"
-                    placeholder="Password"
-                    id="password"
-                    bind:value={password}
+                    type="subject"
+                    class="subject"
+                    placeholder="Subject"
+                    id="subject"
+                    bind:value={subject}
+                />
+            </div>
+            <div class="input-div">
+                <textarea
+                    rows="6"
+                    cols="45"
+                    placeholder="Text"
+                    class="text"
+                    bind:value={text}
                 />
             </div>
 
             <input
                 type="submit"
-                value="Log in"
+                value="Send"
                 class="submit"
-                id="loginButton"
-                on:click={login}
+                id="sendButton"
+                on:click={sendEmail}
             />
-            <a href="/forgotPassword"><p>Forgot Password?</p></a>
-            <a href="/signup"><p>Don't have an account? Sign up</p></a>
         </form>
     </main>
 </body>
 
 <style>
     body {
-        font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-        min-height: 83vh;
+        min-height: 93vh;
         min-width: 95vw;
         display: flex;
         align-items: center;
@@ -97,23 +96,16 @@
         flex-direction: column;
     }
 
-    input
-    {
-        border: #cce3de solid 1px;
-        border-radius: 7px;
-    }
-
-    input:focus
-    {
-        border-color: #a4c3b2
-    }
-
     .input-div {
         position: relative;
     }
 
     form .input-div:first-child {
         padding-top: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    form .input-div:nth-child(2) {
         margin-bottom: 2rem;
     }
 
@@ -130,17 +122,6 @@
         color: rgba(0, 0, 0, 0.5);
     }
 
-    a{
-        text-decoration: none;
-        color:#a4c3b2
-    }
-
-    a:hover
-    {
-        color:#cce3de
-    }
-
-
     .submit {
         margin-top: 4rem;
         padding: 0.6rem;
@@ -152,22 +133,5 @@
         border-radius: 4px;
         background-size: 300% 100%;
         border: none;
-
-        moz-transition: all .4s ease-in-out;
-        -o-transition: all .4s ease-in-out;
-        -webkit-transition: all .4s ease-in-out;
-        transition: all .4s ease-in-out;
-    }
-
-    .submit:hover {
-        background-position: 100% 0;
-        moz-transition: all .4s ease-in-out;
-        -o-transition: all .4s ease-in-out;
-        -webkit-transition: all .4s ease-in-out;
-        transition: all .4s ease-in-out;
-    }
-
-    p {
-        text-align: center;
     }
 </style>

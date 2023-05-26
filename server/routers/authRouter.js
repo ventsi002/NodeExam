@@ -64,36 +64,4 @@ router.get("/auth/logout", (req, res) => {
     res.status(200).send({ message: "See you soon" })
 })
 
-
-router.post('/forgotPass', async (req, res) => {
-    try {
-      //let testAccount = await nodemailer.createTestAccount();
-  
-      let transporter = nodemailer.createTransport({
-        host: 'smtp-mail.outlook.com',
-        port: 587,
-        secure: false,
-        auth: {
-          user: "dannymandatorytwo@outlook.com",
-          pass: "PasswordForMandatory",
-        },
-      });
-
-      const userFound = await db.get("SELECT * FROM users WHERE email = ?", [req.body.email])
-
-      let info = await transporter.sendMail({
-        from: "Mandatory2 Support <dannymandatorytwo@outlook.com>",
-        to: `<${req.body.email}>`,
-        subject: "Forgotten password",
-        text: `Your forgotten password is: ${decrypt(userFound.password)}`,
-      });
-      console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-  
-      res.status(200).send();
-    } catch (error) {
-      console.error(error);
-      res.status(500).send();
-    }
-  });
-
 export default router
