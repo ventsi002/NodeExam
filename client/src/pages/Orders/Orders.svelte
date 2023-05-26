@@ -50,6 +50,7 @@
             <thead>
                 <th>Order number</th>
                 <th>Brand</th>
+                <th>Name</th>
                 <th>Model</th>
                 <th>Size</th>
                 <th>Colorway</th>
@@ -57,8 +58,8 @@
                 <th>Status</th>
             {#if $user.role.role === "admin" && $user !== null}
                 <th>Username</th>
-            {/if}
                 <th></th>
+            {/if}
             </thead>
             {#if orders.length > 0}
                 {#await orders}
