@@ -40,3 +40,27 @@ a
 {
   cursor: pointer;
 }
+
+#table-wrap
+{
+  display: flex;
+  justify-content: center;
+}
+table
+{
+  margin-top: 20px;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  border: 1px solid #2f3e46;
+  color: #2f3e46;
+  border-spacing: 0px;
+  text-align: center;
+}
+
+th, td
+{
+  border: 1px solid #2f3e46;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}

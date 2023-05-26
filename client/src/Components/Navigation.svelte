@@ -77,9 +77,11 @@
                 </svg>                  
             </div>
     </nav>
-    <Route path="/">
-        <Login/>
-    </Route>  
+    {#if !user}
+        <Route path="/">
+            <Login/>
+        </Route>  
+    {/if}
     <Route path="/">
         <Store/>
     </Route>
