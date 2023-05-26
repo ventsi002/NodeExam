@@ -60,8 +60,28 @@ router.delete("/shoes/:model", async (req, res) => {
 router.post("/orders", async (req,res) =>
 {
     console.log(req.body);
-    await db.run("INSERT INTO orders(username, model, size, status) VALUES (?, ?, ?, 'pending')", [req.body.username, req.body.model, req.body.size])
+    await db.run("INSERT INTO orders(username, model, size, status) VALUES (?, ?, ?, 'Pending')", [req.body.username, req.body.model, req.body.size])
     res.send({message: "created order"})
+})
+
+router.get("/orders", async(req, res) =>
+{
+    const orders = await db.all("SELECT * FROM orders INNER JOIN shoes ON orders.size = shoes.size AND orders.model = shoes.model")
+    res.send( orders )
+})
+
+router.get("/orders/:username", async (req,res) =>
+{
+    const username = req.params.username
+    const orders = await db.all("SELECT * FROM orders WHERE username = ?", [username])
+    res.send(orders)
+})
+
+router.put("/orders/:id", async (req,res) =>
+{
+    const id = req.params.id
+    await db.run("UPDATE orders SET status = ? WHERE id = ?", [req.body.status, id])
+    res.send({message: "Order status updated to " + req.body.status})
 })
 
 export default router;
