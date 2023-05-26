@@ -36,8 +36,6 @@
                 <Link to="/" style="text-decoration: none; margin-right: 15px;color: #cce3de;"><p>Home</p></Link>
                 <Link to="/" style="text-decoration: none; margin-right: 15px;color: #cce3de;"><p>Auction</p></Link>
                 <Link to="contact" style="text-decoration: none;color: #cce3de;"><p>Contact us</p></Link>
-                <Link to="admin" style="text-decoration: none;color: #cce3de;"><p>Admin</p></Link>
-
             </div>
             <div>
                 {#if !$user}
