@@ -73,7 +73,7 @@ router.get("/orders", async(req, res) =>
 router.get("/orders/:username", async (req,res) =>
 {
     const username = req.params.username
-    const orders = await db.all("SELECT * FROM orders WHERE username = ?", [username])
+    const orders = await db.all("SELECT * FROM orders INNER JOIN shoes ON orders.size = shoes.size AND orders.model = shoes.model WHERE username = ?", [username])
     res.send(orders)
 })
 
