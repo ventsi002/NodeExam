@@ -60,7 +60,7 @@ router.delete("/shoes/:model", async (req, res) => {
 router.post("/orders", async (req,res) =>
 {
     console.log(req.body);
-    await db.run("INSERT INTO orders(username, model, size) VALUES (?, ?, ?)", [req.body.username, req.body.model, req.body.size])
+    await db.run("INSERT INTO orders(username, model, size, status) VALUES (?, ?, ?, 'pending')", [req.body.username, req.body.model, req.body.size])
     res.send({message: "created order"})
 })
 
