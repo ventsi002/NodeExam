@@ -64,3 +64,27 @@ th, td
   padding-top: 5px;
   padding-bottom: 5px;
 }
+button {
+  padding: 0.6rem;
+  width: 100%;
+  background-image: linear-gradient(to left, #cce3de, #a4c3b2);
+  cursor: pointer;
+  color: white;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  background-size: 300% 100%;
+  border: none;
+
+  moz-transition: all .4s ease-in-out;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+}
+
+button:hover {
+  background-position: 100% 0;
+  moz-transition: all .4s ease-in-out;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+}

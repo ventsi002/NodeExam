@@ -1,4 +1,6 @@
 <script>
+    import { onMount } from "svelte";
+
 
     import { navigate } from "svelte-navigator";
 
@@ -34,13 +36,29 @@
         })
     }
 
+    async function deleteShoe(model) {
+        await fetch(`http://localhost:8080/shoes/${model}`, {
+            method: "DELETE",
+            credentials: "include",
+            headers: {
+                "Content-type": "application/json",
+            },
+        })
+        shoes = shoes.filter((shoe) => shoe.model !== model);
+    }
+
+    onMount(async () => {
+    const response = await fetch('http://localhost:8080/shoes');
+    shoes = await response.json();
+  });
+
 
 </script>
 <div>
     <button on:click={() =>
     {
         navigate("/account/shoes/add-shoes")
-    }}>QJ MI HUQ</button>
+    }}>Add Shoe</button>
 
 </div>
 
@@ -67,8 +85,16 @@
             <td><input type="text" bind:value={shoe.quantity}></td>
             <td><input type="text" bind:value={shoe.price}></td>
             <td><button on:click={() => updateShoe(shoe.brand, shoe.name, shoe.model, shoe.colorway, shoe.quantity, shoe.price)}>Update</button></td>
-            <td><button>Delete</button></td>
+            <td><button on:click={() => deleteShoe(shoe.model)}>Delete</button></td>
         </tr>
         {/each}
     </table>
 </div>
+
+<style>
+    input {
+        border: none;
+        background: transparent;
+        outline: none;
+    }    
+</style>
