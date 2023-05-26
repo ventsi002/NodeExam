@@ -47,7 +47,7 @@ router.post("/shoes", upload.array('file'), async (req, res) => {
 
 router.put("/shoes/:model", async (req, res) => {
     const updateModel = req.params.model;
-    await db.all("UPDATE shoes SET brand = ?, name = ?, model = ?, colorway = ?, quantity = ?, price = ? WHERE model = ? AND forAuction = 0 AND size = ?", [req.body.brand, req.body.name, req.body.model, req.body.colorway, req.body.quantity, req.body.price, updateModel, req.body.size]);
+    await db.run("UPDATE shoes SET brand = ?, name = ?, model = ?, colorway = ?, quantity = ?, price = ? WHERE model = ? AND forAuction = 0", [req.body.brand, req.body.name, req.body.model, req.body.colorway, req.body.quantity, req.body.price, updateModel, req.body.size]);
     res.send({ message: "Shoe updated successfully" });
 });
 
