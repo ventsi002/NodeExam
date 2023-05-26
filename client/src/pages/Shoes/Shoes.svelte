@@ -17,7 +17,7 @@
     fetchShoes();
 
     async function updateShoe(brand, name, model, colorway, quantity, price ) {
-        const response = await fetch("http://localhost:8080/shoes/:model", {
+        const response = await fetch(`http://localhost:8080/shoes/${model}`, {
            method: "PUT",
            credentials: "include",
            headers: {
