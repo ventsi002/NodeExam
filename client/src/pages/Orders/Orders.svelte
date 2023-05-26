@@ -34,7 +34,7 @@
             }
             else
             {
-                const response = await fetch(`http://localhost:8080/shoes/${user.username}`, {
+                const response = await fetch(`http://localhost:8080/orders/${$user.username}`, {
                     method: "GET",
                     credentials: "include",
                 })
@@ -51,6 +51,7 @@
             <thead>
                 <th>Order number</th>
                 <th>Brand</th>
+                <th>Name</th>
                 <th>Model</th>
                 <th>Size</th>
                 <th>Colorway</th>
@@ -58,8 +59,8 @@
                 <th>Status</th>
             {#if $user.role.role === "admin" && $user !== null}
                 <th>Username</th>
-            {/if}
                 <th></th>
+            {/if}
             </thead>
         {#await orders}
             
@@ -70,6 +71,7 @@
                         <tr>
                             <td>{order.id}</td>
                             <td>{order.brand}</td>
+                            <td>{order.name}</td>
                             <td>{order.model}</td>
                             <td>{order.size}</td>
                             <td>{order.colorway}</td>
@@ -92,6 +94,7 @@
                             <tr>
                                 <td>{order.id}</td>
                                 <td>{order.brand}</td>
+                                <td>{order.name}</td>
                                 <td>{order.model}</td>
                                 <td>{order.size}</td>
                                 <td>{order.colorway}</td>
