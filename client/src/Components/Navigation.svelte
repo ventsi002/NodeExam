@@ -10,6 +10,7 @@
     import ForgottenPassword from "../Pages/ForgottenPass/ForgottenPassword.svelte";
     import AddShoe from "../pages/AddShoe/AddShoe.svelte";
     import PrivateRoute from "./PrivateRoute.svelte";
+    import ContactUs from "../pages/ContactUs/ContactUs.svelte";
 
     function handleLogout(){
     $user = null;
@@ -33,7 +34,9 @@
             <div>
                 <Link to="/" style="text-decoration: none; margin-right: 15px;color: #cce3de;"><p>Home</p></Link>
                 <Link to="/" style="text-decoration: none; margin-right: 15px;color: #cce3de;"><p>Auction</p></Link>
-                <Link to="/" style="text-decoration: none;color: #cce3de;"><p>Contact us</p></Link>
+                <Link to="contact" style="text-decoration: none;color: #cce3de;"><p>Contact us</p></Link>
+                <Link to="admin" style="text-decoration: none;color: #cce3de;"><p>Admin</p></Link>
+
             </div>
             <div>
                 {#if !$user}
@@ -102,6 +105,9 @@
     <PrivateRoute path="admin/shoes/addShoes">
         <AddShoe/>
     </PrivateRoute>
+    <Route path="contact">
+        <ContactUs/>
+    </Route>
 </Router>
 
 
