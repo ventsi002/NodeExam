@@ -18,7 +18,7 @@
 
 	$: if ($user !== null && $user.role.role === "admin")
 	{
-		navigate("/admin", { replace: true });
+		navigate("/account", { replace: true });
 	}
 
 </script>

@@ -30,7 +30,7 @@
                     ($location.state && $location.state.from) || "/";
                 if(role.role === "admin")
                 {
-                    let admin = ($location.state && $location.state.from) || "/admin"
+                    let admin = ($location.state && $location.state.from) || "/account"
                     console.log(admin);
                     navigate(admin, { replace: true })
                 }

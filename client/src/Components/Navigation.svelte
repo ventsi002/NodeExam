@@ -5,12 +5,14 @@
     // @ts-ignore
     import { user } from "../store/users.js"
     import Register from "../Pages/Register/Register.svelte";
-    import Admin from "../Pages/Admin/Admin.svelte";
     import Shoe from "../Pages/Shoe/Shoe.svelte";
     import ForgottenPassword from "../Pages/ForgottenPass/ForgottenPassword.svelte";
     import AddShoe from "../pages/AddShoe/AddShoe.svelte";
     import PrivateRoute from "./PrivateRoute.svelte";
     import ContactUs from "../pages/ContactUs/ContactUs.svelte";
+    import Account from "../Pages/Account/Account.svelte";
+    import Shoes from "../Pages/Shoes/Shoes.svelte";
+    import Orders from "../Pages/Orders/Orders.svelte";
 
     function handleLogout(){
     $user = null;
@@ -29,7 +31,6 @@
 
 </script>
 <Router>
-    {#if $user}
     <nav>
             <div>
                 <Link to="/" style="text-decoration: none; margin-right: 15px;color: #cce3de;"><p>Home</p></Link>
@@ -56,7 +57,6 @@
                 </svg>
                 </Link>
                 {/if}
-                {#if $user}
                 <Link to="account"><svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -75,15 +75,11 @@
                 <svg on:click={handleLogout} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
                 </svg>                  
-                {/if}
             </div>
     </nav>
-    {/if}
-    {#if !$user}
     <Route path="/">
         <Login/>
     </Route>  
-    {/if}
     <Route path="/">
         <Store/>
     </Route>
@@ -93,20 +89,30 @@
     <Route path="signup">
         <Register/>
     </Route>
-    <PrivateRoute path="admin">
-        <Admin/>
-    </PrivateRoute>
     <Route path="shoes/:model" >
         <Shoe/>
     </Route>
-    <Route path="forgotPassword">
+    <Route path="forgot-password">
         <ForgottenPassword/>
     </Route>
-    <PrivateRoute path="admin/shoes/addShoes">
+    {#if $user !== null && $user.role.role === "admin"}
+    <Route path="account/shoes">
+        <Shoes/>
+    </Route>
+    {/if}
+    {#if $user !== null && $user.role.role === "admin"}
+    <Route path="account/shoes/add-shoes">
         <AddShoe/>
-    </PrivateRoute>
+    </Route>
+    {/if}
     <Route path="contact">
         <ContactUs/>
+    </Route>
+    <Route path="account">
+        <Account/>        
+    </Route>
+    <Route path="account/orders">
+        <Orders/>
     </Route>
 </Router>
 
