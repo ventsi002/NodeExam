@@ -45,8 +45,8 @@
         body:JSON.stringify(
             {
                 username: username,
-                model: shoe.model,
-                size: pickedSize
+                id: pickedSize,
+                //size: pickedSize
             }
         )
       })
@@ -87,7 +87,7 @@
             {:then data}
                 {#each data as size}
                     {#if size.quantity !== 0}
-                        <input value={size.size} bind:group={pickedSize} type="radio" name="size" class="size" id="button{size.size}"><label for="button{size.size}" class="label-size">EU {size.size}</label>
+                        <input value={size.id} bind:group={pickedSize} type="radio" name="size" class="size" id="button{size.size}"><label for="button{size.size}" class="label-size">EU {size.size}</label>
                     {/if}
                     {#if size.quantity === 0}
                         <input type="radio" name="size" class="size" disabled id="button{size.size}"><label for="button{size.size}" class="label-size unavailable">EU {size.size}</label>
