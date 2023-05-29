@@ -45,7 +45,7 @@
           console.log(shoe.name);
           
         }}>
-        <Link to="shoes/{shoe.model}">
+        <Link to="shoes/{shoe.id}?model={shoe.model}">
           <ShoeDisplay displayImage={shoe.photoLocation.substring(16)} brand={shoe.brand} shoeName={shoe.name} price={shoe.price}/>
         </Link>
         </div>

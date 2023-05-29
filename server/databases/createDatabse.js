@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS auctions(
 );
 
 CREATE TABLE IF NOT EXISTS shoes(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     brand VARCHAR(16) NOT NULL,
     name VARCHAR(64) NOT NULL,
     model VARCHAR(16) NOT NULL,
@@ -36,37 +37,32 @@ CREATE TABLE IF NOT EXISTS shoes(
     quantity SHORTINT NOT NULL,
     size VARCHAR(4) NOT NULL,
     price INTEGER NOT NULL,
-    forAuction TINYINT(1),
-    PRIMARY KEY (model, forAuction, size)
+    forAuction TINYINT(1)
 );
 
 CREATE TABLE IF NOT EXISTS auction_items(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    model VARCHAR(16) NOT NULL,
-    forAuction TINYINT(1),
-    size VARCHAR(4) NOT NULL,
+    shoeID INTERGER NOT NULL,
     auctioneer VARCHAR(32) NOT NULL,
     auctionID INTEGER,
     FOREIGN KEY (auctionID) REFERENCES auction(id),
     FOREIGN KEY (auctioneer) REFERENCES users(username),
-    FOREIGN KEY (model, forAuction, size) REFERENCES shoes(model, forAuction, size)
+    FOREIGN KEY (shoeID) REFERENCES shoes(id)
 );
 
 CREATE TABLE IF NOT EXISTS photos(
-    model VARCHAR(16) NOT NULL,
+    shoeID INTEGER NOT NULL,
     forAuction TINYINT(1),
-    size VARCHAR(4),
     photoLocation TEXT PRIMARY KEY,
-    FOREIGN KEY (model, forAuction, size) REFERENCES shoes(model, forAuction, size)
+    FOREIGN KEY (shoeID) REFERENCES shoes(id)
 );
 
 CREATE TABLE IF NOT EXISTS orders(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username VARCHAR(32) NOT NULL,
-    model VARCHAR(16) NOT NULL,
-    size VARCHAR(4) NOT NULL,
+    shoeID INTEGER NOT NULL,
     status VARCHAR(16) NOT NULL,
-    FOREIGN KEY (model, size) REFERENCES shoes(model, size)
+    FOREIGN KEY (shoeID) REFERENCES shoes(id)
     FOREIGN KEY (username) REFERENCES users(username)
 );
 `);

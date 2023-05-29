@@ -18,8 +18,8 @@
     }
     fetchShoes();
 
-    async function updateShoe(brand, name, model, colorway, quantity, price ) {
-        const response = await fetch(`http://localhost:8080/shoes/${model}`, {
+    async function updateShoe(id, brand, name, model, colorway, quantity, price ) {
+        const response = await fetch(`http://localhost:8080/shoes/${id}`, {
            method: "PUT",
            credentials: "include",
            headers: {
@@ -36,15 +36,15 @@
         })
     }
 
-    async function deleteShoe(model) {
-        await fetch(`http://localhost:8080/shoes/${model}`, {
+    async function deleteShoe(id) {
+        await fetch(`http://localhost:8080/shoes/${id}`, {
             method: "DELETE",
             credentials: "include",
             headers: {
                 "Content-type": "application/json",
             },
         })
-        shoes = shoes.filter((shoe) => shoe.model !== model);
+        shoes = shoes.filter((shoe) => shoe.id !== id);
     }
 
     onMount(async () => {
@@ -65,6 +65,7 @@
 <div id="table-wrap">
     <table class="table">
         <tr>
+            <th>ID</th>
             <th>Brand</th>
             <th>Name</th>
             <th>Model</th>
@@ -78,14 +79,15 @@
         
         {#each shoes as shoe }
         <tr>
+            <td>{shoe.id}</td>
             <td><input type="text" bind:value={shoe.brand}></td>
             <td><input type="text" bind:value={shoe.name}></td>
             <td><input type="text" bind:value={shoe.model}></td>
             <td><input type="text" bind:value={shoe.colorway}></td>
             <td><input type="text" bind:value={shoe.quantity}></td>
             <td><input type="text" bind:value={shoe.price}></td>
-            <td><button on:click={() => updateShoe(shoe.brand, shoe.name, shoe.model, shoe.colorway, shoe.quantity, shoe.price)}>Update</button></td>
-            <td><button on:click={() => deleteShoe(shoe.model)}>Delete</button></td>
+            <td><button on:click={() => updateShoe(shoe.id, shoe.brand, shoe.name, shoe.model, shoe.colorway, shoe.quantity, shoe.price)}>Update</button></td>
+            <td><button on:click={() => deleteShoe(shoe.id)}>Delete</button></td>
         </tr>
         {/each}
     </table>
