@@ -6,7 +6,7 @@ import path from "path";
 
 
 router.get("/auctions", async (req, res) => {
-    const auction = await db.all("SELECT * FROM auction_items INNER JOIN shoes ON auction_items.shoeID = shoes.id INNER JOIN auctions ON auction_items.auctionID = auctions.id");
+    const auction = await db.all("SELECT * FROM auction_items INNER JOIN shoes ON auction_items.shoeID = shoes.id INNER JOIN auctions ON auction_items.auctionID = auctions.id INNER JOIN photos ON shoes.id = photos.shoeID GROUP BY shoes.id");
     res.send( auction );
     console.log(auction);
 });
