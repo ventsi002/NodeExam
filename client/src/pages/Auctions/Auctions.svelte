@@ -11,6 +11,7 @@
       })
       const data = await response.json()
       shoes = data
+      console.log(shoes);
     }
     loadShoes()
   </script>
