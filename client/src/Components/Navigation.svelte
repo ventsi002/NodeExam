@@ -35,7 +35,7 @@
     <nav>
             <div>
                 <Link to="/" style="text-decoration: none; margin-right: 15px;color: #cce3de;"><p>Home</p></Link>
-                <Link to="/" style="text-decoration: none; margin-right: 15px;color: #cce3de;"><p>Auction</p></Link>
+                <Link to="auctions" style="text-decoration: none; margin-right: 15px;color: #cce3de;"><p>Auction</p></Link>
                 <Link to="contact" style="text-decoration: none;color: #cce3de;"><p>Contact us</p></Link>
                 <Link to="admin" style="text-decoration: none;color: #cce3de;"><p>Admin</p></Link>
 
@@ -98,15 +98,13 @@
     <Route path="forgot-password">
         <ForgottenPassword/>
     </Route>
+    <Route path="auctions">
+        <Auctions/>
+    </Route>
     {#if $user !== null && $user.role.role === "admin"}
     <Route path="account/shoes">
         <Shoes/>
     </Route>
-    <Route path="auctions">
-        <Auctions/>
-    </Route>
-    {/if}
-    {#if $user !== null && $user.role.role === "admin"}
     <Route path="account/shoes/add-shoes">
         <AddShoe/>
     </Route>
