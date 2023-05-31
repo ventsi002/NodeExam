@@ -14,6 +14,7 @@
     import Shoes from "../Pages/Shoes/Shoes.svelte";
     import Orders from "../Pages/Orders/Orders.svelte";
     import Auctions from "../Pages/Auctions/Auctions.svelte";
+    import Auction from "../Pages/Auction/Auction.svelte";
     import AuctionManagement from "../Pages/AuctionManagement/AuctionManagement.svelte";
     import CreateAuction from "../Pages/CreateAuction/CreateAuction.svelte";
 
@@ -128,6 +129,9 @@
         </Route>
         <Route path="account/orders">
             <Orders/>
+        </Route>
+        <Route path="auctions/:model">
+            <Auction/>
         </Route>
     {/if}
 </Router>

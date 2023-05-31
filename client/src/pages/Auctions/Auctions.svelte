@@ -38,7 +38,7 @@
       {:then data}
         {#each data as shoe}
         {#if shoe.status !== "Finished"}
-          <Link to="/auctions/{shoe.model}">
+          <Link to="/auctions/{shoe.id}">
             <ShoeDisplay displayImage={shoe.photoLocation.substring(16)} brand={shoe.brand} shoeName={shoe.name} price={shoe.bid}/>
           </Link>
         {/if}

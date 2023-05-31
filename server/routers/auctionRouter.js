@@ -23,9 +23,10 @@ router.get("/auctions/:username", async (req, res) => {
 
 
 router.get("/auctions/:id", async (req, res) => {
-    id = req.params.id
-    const shoes = await db.all("SELECT * FROM shoes WHERE forAuction = 1 AND id = ?", [id]);
-    res.send({ shoes });
+    const id = req.params.id
+    const auction = await db.get("SELECT * FROM auction_items INNER JOIN shoes ON auction_items.shoeID = shoes.id INNER JOIN auctions ON auction_items.auctionID = auctions.id WHERE auction_items.shoeID = ? GROUP BY shoes.id", [id]);
+    const photos = await db.all("SELECT photoLocation FROM photos WHERE shoeID = ?", [id]);
+    res.send({ auction, photos });
     //console.log(shoes);
 });
 
@@ -52,10 +53,10 @@ router.post("/auctions", upload.array('file'), async (req, res) => {
 
     for(const file of req.files)
     {
-        await db.run("INSERT INTO photos(shoeID, forAuction, photoLocation) VALUES (?, 0, ?)", [shoeID, file.path]) 
+        await db.run("INSERT INTO photos(shoeID, forAuction, photoLocation) VALUES (?, 1, ?)", [shoeID, file.path]) 
     }
 
-    res.send({ message: "Shoe added successfully" });
+    res.send({ message: "Auction created successfully" });
 });
 
 router.put("/auctions/:id", async (req, res) => {
