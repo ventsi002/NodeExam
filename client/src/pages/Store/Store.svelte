@@ -1,14 +1,13 @@
 <script>
     import { Link, Router } from "svelte-navigator";
     import ShoeDisplay from "../../Components/ShoeDisplay.svelte";
-  
+
     let selectedFile;
     const formData = new FormData();
     function handleFileChange(event) {
       selectedFile = event.target.files[0];
       formData.append("file", selectedFile);
     }
-  
     // Test 
     const imagePath = "images/Screenshot 2023-05-16 at 18.49.25.png"
     let shoeNameB = "Nike Air Force 1 Mid"
