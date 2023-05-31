@@ -14,9 +14,12 @@
     import Shoes from "../Pages/Shoes/Shoes.svelte";
     import Orders from "../Pages/Orders/Orders.svelte";
     import Auctions from "../Pages/Auctions/Auctions.svelte";
+    import AuctionManagement from "../Pages/AuctionManagement/AuctionManagement.svelte";
+    import CreateAuction from "../Pages/CreateAuction/CreateAuction.svelte";
 
     function handleLogout(){
     $user = null;
+    document.cookie = "expires=Thu, 01 Jan 1970 00:00:00 UTC;"
     fetch("http://localhost:8080/auth/logout", {
       method: "GET",
             credentials: "include",
@@ -32,6 +35,7 @@
 
 </script>
 <Router>
+    {#if $user}
     <nav>
             <div>
                 <Link to="/" style="text-decoration: none; margin-right: 15px;color: #cce3de;"><p>Home</p></Link>
@@ -76,46 +80,56 @@
                 </svg>                  
             </div>
     </nav>
-    {#if !user}
+    {/if}
+    {#if !$user}
         <Route path="/">
             <Login/>
         </Route>  
+        {:else}
+        <Route path="/">
+            <Store/>
+        </Route>
+        <Route path="login">
+            <Login/>
+        </Route>
+        <Route path="account/auctions">
+            <AuctionManagement/>
+        </Route>
+        <Route path="signup">
+            <Register/>
+        </Route>
+        <Route path="shoes/:model" >
+            <Shoe/>
+        </Route>
+        <Route path="forgot-password">
+            <ForgottenPassword/>
+        </Route>
+        <Route path="auctions">
+            <Auctions/>
+        </Route>
+        {#if $user !== null && $user.role.role === "admin"}
+        <Route path="account/shoes">
+            <Shoes/>
+        </Route>
+        <Route path="account/shoes/add-shoes">
+            <AddShoe/>
+        </Route>
+        {/if}
+        {#if $user !== null && ($user.role.role === "admin" || $user.role.role === "auctioneer")}
+            <Route>
+                <CreateAuction/>
+            </Route>
+        {/if}
+        <Route path="contact">
+            <ContactUs/>
+        </Route>
+        <Route path="account">
+            <Account/>        
+        </Route>
+        <Route path="account/orders">
+            <Orders/>
+        </Route>
     {/if}
-    <Route path="/">
-        <Store/>
-    </Route>
-    <Route path="login">
-        <Login/>
-    </Route>
-    <Route path="signup">
-        <Register/>
-    </Route>
-    <Route path="shoes/:model" >
-        <Shoe/>
-    </Route>
-    <Route path="forgot-password">
-        <ForgottenPassword/>
-    </Route>
-    <Route path="auctions">
-        <Auctions/>
-    </Route>
-    {#if $user !== null && $user.role.role === "admin"}
-    <Route path="account/shoes">
-        <Shoes/>
-    </Route>
-    <Route path="account/shoes/add-shoes">
-        <AddShoe/>
-    </Route>
-    {/if}
-    <Route path="contact">
-        <ContactUs/>
-    </Route>
-    <Route path="account">
-        <Account/>        
-    </Route>
-    <Route path="account/orders">
-        <Orders/>
-    </Route>
 </Router>
 
 
