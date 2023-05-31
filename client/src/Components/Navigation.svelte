@@ -7,12 +7,13 @@
     import Register from "../Pages/Register/Register.svelte";
     import Shoe from "../Pages/Shoe/Shoe.svelte";
     import ForgottenPassword from "../Pages/ForgottenPass/ForgottenPassword.svelte";
-    import AddShoe from "../pages/AddShoe/AddShoe.svelte";
+    import AddShoe from "../Pages/AddShoe/AddShoe.svelte";
     import PrivateRoute from "./PrivateRoute.svelte";
-    import ContactUs from "../pages/ContactUs/ContactUs.svelte";
+    import ContactUs from "../Pages/ContactUs/ContactUs.svelte";
     import Account from "../Pages/Account/Account.svelte";
     import Shoes from "../Pages/Shoes/Shoes.svelte";
     import Orders from "../Pages/Orders/Orders.svelte";
+    import Auctions from "../Pages/Auctions/Auctions.svelte";
 
     function handleLogout(){
     $user = null;
@@ -100,6 +101,9 @@
     {#if $user !== null && $user.role.role === "admin"}
     <Route path="account/shoes">
         <Shoes/>
+    </Route>
+    <Route path="auctions">
+        <Auctions/>
     </Route>
     {/if}
     {#if $user !== null && $user.role.role === "admin"}

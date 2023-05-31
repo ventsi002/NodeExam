@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS shoes(
     colorway VARCHAR(64) NOT NULL,
     quantity SHORTINT NOT NULL,
     size VARCHAR(4) NOT NULL,
-    price INTEGER NOT NULL,
+    price INTEGER,
     forAuction TINYINT(1)
 );
 

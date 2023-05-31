@@ -6,7 +6,7 @@ import path from "path";
 
 
 router.get("/auctions", async (req, res) => {
-    const auction = await db.all("SELECT * FROM auction_items INNER JOIN shoes ON auction_items.shoeID = shoes.id");
+    const auction = await db.all("SELECT * FROM auction_items INNER JOIN shoes ON auction_items.shoeID = shoes.id INNER JOIN auctions ON auction_items.auctionID = auctions.id");
     res.send( auction );
     console.log(auction);
 });
@@ -29,15 +29,15 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
-router.post("/auctions", async (req, res) => {
-    if (!req.body.brand || !req.body.name || !req.body.model || !req.body.colorway || !req.body.quantity || !req.body.size || !req.body.price) {
+router.post("/auctions", upload.array('file'), async (req, res) => {
+    if (!req.body.brand || !req.body.name || !req.body.model || !req.body.colorway || !req.body.size) {
         return res.status(400).send({ message: "Missing inforamtion" });
     }
-    const shoeResult = await db.run("INSERT INTO shoes(brand, name, model, colorway, quantity, size, price, forAuction) VALUES (?, ?, ?, ?, ?, ?, ?, 1)", [req.body.brand, req.body.name, req.body.model, req.body.colorway, req.body.quantity, req.body.size, req.body.price]);
-    const auctionResult = await db.run("INSERT INTO auction(description, bid, endDate) VALUES(?, ?, ?)", [req.body.description, req.body.bid, req.body.endDate])
+    const shoeResult = await db.run("INSERT INTO shoes(brand, name, model, colorway, quantity, size, forAuction) VALUES (?, ?, ?, ?, 1, ?, 1)", [req.body.brand, req.body.name, req.body.model, req.body.colorway, req.body.size]);
+    const auctionResult = await db.run("INSERT INTO auctions(description, bid, endDate) VALUES(?, ?, ?)", [req.body.description, req.body.bid, req.body.endDate])
     const shoeID = shoeResult.lastID
     const auctionID = auctionResult.lastID
-    await db.run("INSERT INTO auction_item(shoeID, auctioneer, auctionID) VALUES(?, ?, ?)", [shoeID, req.body.username, auctionID])
+    await db.run("INSERT INTO auction_items(shoeID, auctioneer, auctionID) VALUES(?, ?, ?)", [shoeID, req.body.username, auctionID])
 
     for(const file of req.files)
     {
