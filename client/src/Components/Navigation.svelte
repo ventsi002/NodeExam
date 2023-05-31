@@ -14,6 +14,7 @@
     import Shoes from "../Pages/Shoes/Shoes.svelte";
     import Orders from "../Pages/Orders/Orders.svelte";
     import Auctions from "../Pages/Auctions/Auctions.svelte";
+    import Auction from "../Pages/Auction/Auction.svelte";
 
     function handleLogout(){
     $user = null;
@@ -115,6 +116,9 @@
     </Route>
     <Route path="account/orders">
         <Orders/>
+    </Route>
+    <Route path="auctions/:model">
+        <Auction/>
     </Route>
 </Router>
 
