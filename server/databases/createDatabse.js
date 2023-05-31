@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS auctions(
     bid INTEGER NOT NULL,
     endDate DATETIME NOT NULL,
     bidUser VARCHAR(32),
+    status VARCHAR(32) NOT NULL,
     FOREIGN KEY (bidUser) REFERENCES users(username)
 );
 
