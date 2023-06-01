@@ -31,8 +31,25 @@
         auction = auctionInformation.auction;
         photos = auctionInformation.photos
         photos.forEach(photo => {photo.photoLocation.substring(16)});
+
+        timeDifference();
     }
 
+    function timeDifference() {
+        const endDate = new Date(auction.endDate);
+        const currentTime = new Date();
+        const difference = endDate - currentTime;
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+        const timeElement = document.querySelector('.value-date');
+        if (timeElement) {
+            timeElement.textContent = `${days} d, ${hours} h, ${minutes} m, ${seconds} s`;
+        }
+        setInterval(timeDifference, 1000);
+
+    }
     loadAuction();
 
 </script>
@@ -57,42 +74,48 @@
         {/await}
     </div>
 
-    <div class="date-section">
-        <div class="detail">
-            <span class="label">End Date:</span>
-            <span class="value">{auction.endDate}</span>
+    <div class="time-info">
+        <div class="date-section">
+            <div class="detail">
+                <span class="label">Ends in:</span>
+                <span class="value-date">{auction.endDate}</span>
+            </div>
         </div>
-    </div>
 
-    <div class="info-column">
-        <div class="info">
-            <div class="detail">
-                <span class="label">Brand:</span>
-                <span class="value">{auction.brand}</span>
-            </div>
-            <div class="detail">
-                <span class="label">Name:</span>
-                <span class="value">{auction.name}</span>
-            </div>
-            <div class="detail">
-                <span class="label">Model:</span>
-                <span class="value">{auction.model}</span>
-            </div>
-            <div class="detail">
-                <span class="label">Colorway:</span>
-                <span class="value">{auction.colorway}</span>
-            </div>
-            <div class="detail">
-                <span class="label">Size:</span>
-                <span class="value">{auction.size}</span>
-            </div>
-            <div class="detail">
-                <span class="label">Current Bid:</span>
-                <span class="value">{auction.bid}</span>
-            </div>
-            <div class="detail">
-                <span class="label">Bid User:</span>
-                <span class="value">{auction.bidUser}</span>
+        <div class="info-column">
+            <div class="info">
+                <div class="detail">
+                    <span class="label">Brand:</span>
+                    <span class="value">{auction.brand}</span>
+                </div>
+                <div class="detail">
+                    <span class="label">Name:</span>
+                    <span class="value">{auction.name}</span>
+                </div>
+                <div class="detail">
+                    <span class="label">Model:</span>
+                    <span class="value">{auction.model}</span>
+                </div>
+                <div class="detail">
+                    <span class="label">Colorway:</span>
+                    <span class="value">{auction.colorway}</span>
+                </div>
+                <div class="detail">
+                    <span class="label">Size:</span>
+                    <span class="value">{auction.size}</span>
+                </div>
+                <div class="detail">
+                    <span class="label">Current Bid:</span>
+                    <span class="value">{auction.bid}</span>
+                </div>
+                <div class="detail">
+                    <span class="label">Highest bidder:</span>
+                    {#if auction.bidUser == null }
+                    <span class="value">No bids yet</span>
+                    {:else}
+                    <span class="value">{auction.bidUser}</span>
+                    {/if}
+                </div>
             </div>
         </div>
 
@@ -114,17 +137,16 @@
 <style>
     .parent {
         font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-        display: inline-flex;
+        display: flex;
         color: #2f3e46;
         width: 100%;
         padding: 20px;
+        justify-content: space-between;
     }
 
     .date-section {
         display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        margin-right: 20px;
+        font-size: 26px;
     }
 
     .info-column {
@@ -142,6 +164,11 @@
         border-right: 1px solid #a4c3b2;
     }
 
+    .time-info {
+        flex-direction: column;
+        margin-left: 125px;
+    }
+
     .detail {
         display: flex;
         align-items: center;
@@ -156,6 +183,11 @@
     .value {
         font-weight: 400;
         font-size: 18px;
+    }
+
+    .value-date {
+        font-weight: 400;
+        font-size: 24px;
     }
 
     .bid-section {
@@ -195,7 +227,9 @@
 
     .description {
         flex-direction: column;
-        align-items: end;
+        align-items: center;
         display: flex;
+        width: 75%;
+        margin-left: 125px;
     }
 </style>

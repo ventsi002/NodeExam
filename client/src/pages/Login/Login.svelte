@@ -12,12 +12,16 @@
     if(document.cookie)
     {
         const cookies = document.cookie.split(';');
-        const today = new Date()
-        const dateFromCookie = new Date(Date.parse(cookies[2].substring(8)))
-        if(dateFromCookie > today)
-        {
-            user.set(JSON.parse(cookies[1].substring(6)))
+        if (cookies.length >= 3) {
+        const today = new Date();
+        const dateFromCookie = new Date(Date.parse(cookies[2].substring(8)));
+
+        if (dateFromCookie > today) {
+            const userCookie = cookies[1].substring(6);
+            const parsedUserCookie = JSON.parse(userCookie);
+            user.set(parsedUserCookie);
         }
+    }
     }
 
 
