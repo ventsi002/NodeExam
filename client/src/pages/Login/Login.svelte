@@ -9,6 +9,18 @@
     let password;
     let role;
 
+    if(document.cookie)
+    {
+        const cookies = document.cookie.split(';');
+        const today = new Date()
+        const dateFromCookie = new Date(Date.parse(cookies[2].substring(8)))
+        if(dateFromCookie > today)
+        {
+            user.set(JSON.parse(cookies[1].substring(6)))
+        }
+    }
+
+
     function login(event) {
         event.preventDefault();
 
@@ -26,12 +38,17 @@
             role = await response.json()
             if (response.status === 200) {
                 user.set({ username, password, role });
+                const userCookie = JSON.stringify($user)
+                const date = new Date()
+                date.setDate(date.getDate()+1)
+                console.log(date.toUTCString());
+                document.cookie = `user=${userCookie}; path=/`
+                document.cookie = `expires=${date.toUTCString()}`
                 const from =
                     ($location.state && $location.state.from) || "/";
                 if(role.role === "admin")
                 {
                     let admin = ($location.state && $location.state.from) || "/account"
-                    console.log(admin);
                     navigate(admin, { replace: true })
                 }
                 else
@@ -73,7 +90,7 @@
                 id="loginButton"
                 on:click={login}
             />
-            <a href="/forgotPassword"><p>Forgot Password?</p></a>
+            <a href="/forgot-password"><p>Forgot Password?</p></a>
             <a href="/signup"><p>Don't have an account? Sign up</p></a>
         </form>
     </main>
