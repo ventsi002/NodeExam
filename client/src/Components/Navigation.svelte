@@ -86,6 +86,12 @@
         <Route path="/">
             <Login/>
         </Route>  
+        <Route path="signup">
+            <Register/>
+        </Route>
+        <Route path="forgot-password">
+            <ForgottenPassword/>
+        </Route>
         {:else}
         <Route path="/">
             <Store/>
@@ -96,14 +102,8 @@
         <Route path="account/auctions">
             <AuctionManagement/>
         </Route>
-        <Route path="signup">
-            <Register/>
-        </Route>
         <Route path="shoes/:model" >
             <Shoe/>
-        </Route>
-        <Route path="forgot-password">
-            <ForgottenPassword/>
         </Route>
         <Route path="auctions">
             <Auctions/>

@@ -8,7 +8,6 @@
         let name;
         let model;
         let colorway;
-        let quantity;
         let size;
         let price;
         let file;
@@ -26,7 +25,6 @@
             formData.append('name', name);
             formData.append('model', model);
             formData.append('colorway', colorway);
-            formData.append('quantity', quantity);
             formData.append('size', size);
             formData.append('bid', price);
             formData.append('endDate', date);
@@ -86,16 +84,6 @@
                     bind:value={colorway}
                 />
                 </div>
-    
-                <div class="input-div">
-                    <input
-                        type="text"
-                        class="quantity"
-                        placeholder="Quantity"
-                        id="quantity"
-                        bind:value={quantity}
-                    />
-                </div>
                 <div class="input-div">
                 <input
                         type="text"
@@ -108,9 +96,9 @@
                 <div class="input-div">
                     <input
                             type="text"
-                            class="price"
+                            class="startingPrice"
                             placeholder="Starting Price"
-                            id="price"
+                            id="startingPrice"
                             bind:value={price}
                         />
                     </div>

@@ -27,7 +27,7 @@
             }),
         }).then((response) => {
             if (response.status === 200) {
-                window.location.href = "/login";
+                window.location.href = "/";
             }
         });
     }
