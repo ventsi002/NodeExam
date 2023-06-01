@@ -38,38 +38,77 @@
 </script>
 
 <div class="parent">
-    {#await photos}
-        {:then data}
-            <div class="image">
-                {#each data as photo, index}
-                {#if index === 0}
-                    <img class="main-photo" width="512px" height="512px" src={photo.photoLocation.substring(16)} alt="main-photo" >
-                {:else}
-                    <img on:click={() => 
-                        {
-                            [data[0].photoLocation, photo.photoLocation] = [photo.photoLocation, data[0].photoLocation]
-
-                        }
-                    } width="100px" height="100px" src={photo.photoLocation.substring(16)} alt="secondary-photos">
-                {/if}
-                {/each}
-            </div>
-    {/await}
-
-    <div class="info">
-        <h1>{auction.endDate}</h1>
-            <div class="info-child">
-                <h1>{auction.brand}</h1>
-                <h1>{auction.name}</h1>
-                <h1>{auction.model}</h1>
-                <h1>{auction.colorway}</h1>
-                <h1>{auction.size}</h1>
-                <h1>{auction.description}</h1>
-                <h1>{auction.bid}</h1>
-                <h1>{auction.bidUser}</h1>
-            </div>
+    <div class="image-section">
+        {#await photos}
+            {:then data}
+                <div class="image-container">
+                    {#each data as photo, index}
+                        {#if index === 0}
+                            <img class="main-photo" width="512px" height="512px" src={photo.photoLocation.substring(16)} alt="main-photo">
+                        {:else}
+                            <img on:click={() => 
+                                {
+                                    [data[0].photoLocation, photo.photoLocation] = [photo.photoLocation, data[0].photoLocation]
+                                }
+                            } width="100px" height="100px" src={photo.photoLocation.substring(16)} alt="secondary-photos">
+                        {/if}
+                    {/each}
+                </div>
+        {/await}
     </div>
 
+    <div class="date-section">
+        <div class="detail">
+            <span class="label">End Date:</span>
+            <span class="value">{auction.endDate}</span>
+        </div>
+    </div>
+
+    <div class="info-column">
+        <div class="info">
+            <div class="detail">
+                <span class="label">Brand:</span>
+                <span class="value">{auction.brand}</span>
+            </div>
+            <div class="detail">
+                <span class="label">Name:</span>
+                <span class="value">{auction.name}</span>
+            </div>
+            <div class="detail">
+                <span class="label">Model:</span>
+                <span class="value">{auction.model}</span>
+            </div>
+            <div class="detail">
+                <span class="label">Colorway:</span>
+                <span class="value">{auction.colorway}</span>
+            </div>
+            <div class="detail">
+                <span class="label">Size:</span>
+                <span class="value">{auction.size}</span>
+            </div>
+            <div class="detail">
+                <span class="label">Current Bid:</span>
+                <span class="value">{auction.bid}</span>
+            </div>
+            <div class="detail">
+                <span class="label">Bid User:</span>
+                <span class="value">{auction.bidUser}</span>
+            </div>
+        </div>
+
+        <div class="bid-section">
+            <h2 class="bid-title">Place a Bid</h2>
+            <input class="bid-input" type="number" placeholder="Enter your bid amount">
+            <button class="bid-button">Submit Bid</button>
+        </div>
+    </div>
+
+    <div>
+        <div class="description">
+            <h2 class="label">Description:</h2>
+            <p class="value">{auction.description}</p>
+        </div>
+    </div>
 </div>
 
 <style>
@@ -78,22 +117,85 @@
         display: inline-flex;
         color: #2f3e46;
         width: 100%;
+        padding: 20px;
     }
 
-    .image {
-        align-items: stretch
+    .date-section {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-right: 20px;
+    }
+
+    .info-column {
+        display: flex;
+        flex-direction: column;
     }
 
     .info {
-        justify-self: flex-end;
-        text-align: center;
-        width: 100%;
+        text-align: left;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-top: 3px solid #2f3e46;
+        border-bottom: 3px solid #2f3e46;
+        border-left: 1px solid #a4c3b2;
+        border-right: 1px solid #a4c3b2;
     }
 
-    .info-child {
+    .detail {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .label {
+        font-weight: 600;
+        margin-right: 10px;
+    }
+
+    .value {
+        font-weight: 400;
+        font-size: 18px;
+    }
+
+    .bid-section {
+        display: flex;
         flex-direction: column;
-        position: absolute;
-        border: 1px solid black ;
+        align-items: center;
+        margin-top: 20px;
     }
 
+    .bid-title {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .bid-input {
+        padding: 10px;
+        width: 300px;
+        font-size: 18px;
+        border: 1px solid #888888;
+        border-radius: 4px;
+        margin-bottom: 10px;
+    }
+
+    .bid-button {
+        padding: 10px 20px;
+        background-color: #1e88e5;
+        color: #ffffff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 20px;
+    }
+
+    .bid-button:hover {
+        background-color: #1976d2;
+    }
+
+    .description {
+        flex-direction: column;
+        align-items: end;
+        display: flex;
+    }
 </style>
