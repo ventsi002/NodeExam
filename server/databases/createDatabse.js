@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS users(
     password TEXT NOT NULL,
     firstName VARCHAR(32) NOT NULL,
     lastName VARCHAR(32) NOT NULL,
-    email VARCHAR(64) NOT NULL,
+    email VARCHAR(64) NOT NULL UNIQUE,
     address TEXT NOT NULL,
     role TINYINT,
     FOREIGN KEY (role) REFERENCES roles (id) 
