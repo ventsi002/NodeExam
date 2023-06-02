@@ -82,7 +82,7 @@ import { navigate } from "svelte-navigator";
                                 <td>{auction.size}</td>
                                 <td>{auction.colorway}</td>
                                 <td>€{auction.bid}</td>
-                                <td>{auction.description}</td>
+                                <td style=" overflow: scroll; text-overflow: clip;">{auction.description}</td>
                                 <td>{auction.endDate}</td>
                                 <td>{#if auction.bidUser !== null}
                                         {auction.bidUser}

@@ -21,6 +21,25 @@ app.use(session({
     cookie: { secure: false }
 }));
 
+import http from "http";
+import { Server } from "socket.io";
+
+const server = http.createServer(app);
+const io = new Server(server);
+
+io.on("connection", (socket) => {
+    socket.on('placeBid', (bidData) => {
+        auction.bid = bidData.amount;
+        auction.bidUser = socket.id;
+
+        io.emit("bidUpdate", {
+            bid: auction.bid,
+            bidUser: auction.bidUser,
+        });
+    });
+});
+
+
 import authRouter from "./routers/authRouter.js";
 app.use(authRouter);
 
