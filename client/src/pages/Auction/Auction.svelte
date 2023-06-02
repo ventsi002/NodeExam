@@ -1,7 +1,7 @@
 <script>
     import {onMount, afterUpdate} from "svelte";
-    import { io } from "socket.io-client";
-    
+    import io from "socket.io-client";
+
     let auctionInformation = {}
     let shoe = {
         brand: null,
@@ -55,14 +55,8 @@
     }
     loadAuction();
 
-    let socket;
     let bidAmount = '';
-
-        socket = io("http://localhost:8080");
-
-        socket.on("bidUpdate", (updatedBidData) => {
-            auction = updatedBidData;
-        });
+    const socket = io("localhost:8080");
 
     function placeBid() {
         const bidData = {
@@ -70,12 +64,11 @@
         };
         socket.emit("placeBid", bidData);
     }
-    afterUpdate(() => {
-        socket.on("bidUpdate", (updatedBidData) => {
-            auction.bid = updatedBidData.bid;
-            auction.bidUser = updatedBidData.bidUser;
-         });
-    });
+        
+    socket.on("bidUpdate", (updatedBidData) => {
+        auction.bid = updatedBidData.bid;
+        auction.bidUser = updatedBidData.bidUser;
+    })
 
 </script>
 
@@ -146,7 +139,7 @@
 
         <div class="bid-section">
             <h2 class="bid-title">Place a Bid</h2>
-            <input class="bid-input" type="number" bind:value={bidAmount} placeholder="Enter your bid amount">
+            <input class="bid-input" type="number" on:change={() => {console.log(bidAmount) }} bind:value={bidAmount} placeholder="Enter your bid amount">
             <button class="bid-button" on:click={placeBid}>Submit Bid</button>
         </div>
     </div>
