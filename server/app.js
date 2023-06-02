@@ -25,10 +25,15 @@ import http from "http";
 import { Server } from "socket.io";
 
 const server = http.createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+    cors: {
+        origin: "*",
+        methods: ["*"]
+    }
+});
 
 io.on("connection", (socket) => {
-    socket.on('placeBid', (bidData) => {
+    socket.on("placeBid", (bidData) => {
         auction.bid = bidData.amount;
         auction.bidUser = socket.id;
 
