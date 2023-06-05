@@ -1,6 +1,7 @@
 <script>
     import {onMount, afterUpdate} from "svelte";
     import io from "socket.io-client";
+    import { user, biddersStore } from "../../store/users";
 
     let auctionInformation = {}
     let shoe = {
@@ -61,13 +62,27 @@
     function placeBid() {
         const bidData = {
             amount: bidAmount,
+            user: $user.username
         };
         socket.emit("placeBid", bidData);
+        
+        biddersStore.update(bidders => {
+            const existingBidderIndex = bidders.findIndex(bidder => bidder.auctionId === id && bidder.bidder === $user.username);
+            if(existingBidderIndex === -1)
+            {
+                bidders.push({ id, bidder: $user.username, bid: bidAmount });
+            }
+            else
+            {
+                bidders[existingBidderIndex].bid = bidAmount
+            }
+            return bidders
+        })
     }
         
     socket.on("bidUpdate", (updatedBidData) => {
-        auction.bid = updatedBidData.bid;
-        auction.bidUser = updatedBidData.bidUser;
+        auction.bid = updatedBidData.amount;
+        auction.bidUser = updatedBidData.user;
     })
 
 </script>
@@ -136,12 +151,15 @@
                 </div>
             </div>
         </div>
-
+        {#if $user !== null && $user.username !== auction.bidUser }
         <div class="bid-section">
             <h2 class="bid-title">Place a Bid</h2>
             <input class="bid-input" type="number" on:change={() => {console.log(bidAmount) }} bind:value={bidAmount} placeholder="Enter your bid amount">
             <button class="bid-button" on:click={placeBid}>Submit Bid</button>
         </div>
+            {:else}
+            <h2>You are the highest bidder</h2>
+        {/if}
     </div>
 
     <div>

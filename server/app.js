@@ -34,13 +34,7 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
     socket.on("placeBid", (bidData) => {
-        auction.bid = bidData.amount;
-        auction.bidUser = socket.id;
-
-        io.emit("bidUpdate", {
-            bid: auction.bid,
-            bidUser: auction.bidUser,
-        });
+        io.emit("bidUpdate", bidData);
     });
 });
 
@@ -59,4 +53,4 @@ app.use(emailRouter);
 
 
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => console.log("Server is running on port ", PORT));
+server.listen(PORT, () => console.log("Server is running on port ", PORT));
