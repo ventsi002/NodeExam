@@ -3,6 +3,9 @@
 
     import { append } from "svelte/internal";
 
+    import toastr from "toastr"
+    import "toastr/build/toastr.min.css";
+
     let brand;
     let name;
     let model;
@@ -16,27 +19,72 @@
     function addShoe(event) {
         event.preventDefault();
 
-        formData.append('brand', brand);
-        formData.append('name', name);
-        formData.append('model', model);
-        formData.append('colorway', colorway);
-        formData.append('quantity', quantity);
-        formData.append('size', size);
-        formData.append('price', price);
-        console.log(formData.get("file"));
-        fetch("http://localhost:8080/shoes", {
-            method: "POST",
-            credentials: "include",
-            body: formData
-        })
-        formData.set("file", null)
+        if(!brand || !name || !model || !colorway || !quantity || !size || !price || !file) {
+            toastr["error"]("Missing information");
+            
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "500",
+                "timeOut": "1500",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+        }
+        else{
+            formData.append('brand', brand);
+            formData.append('name', name);
+            formData.append('model', model);
+            formData.append('colorway', colorway);
+            formData.append('quantity', quantity);
+            formData.append('size', size);
+            formData.append('price', price);
+            fetch("http://localhost:8080/shoes", {
+                method: "POST",
+                credentials: "include",
+                body: formData
+            })
+            formData.set("file", null);
+
+            toastr["success"]("Shoe created successfully");
+                
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "500",
+                "timeOut": "1500",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+
+            document.getElementById("form").reset();
+        }
+
     }
 
 </script>
 
 <body>
     <main>
-        <form>
+        <form id="form">
             <div class="input-div">
                 <input
                     type="text"
@@ -96,9 +144,9 @@
             <div class="input-div">
                 <input
                         type="text"
-                        class="price"
+                        class="shoePrice"
                         placeholder="Price"
-                        id="price"
+                        id="shoePrice"
                         bind:value={price}
                     />
                 </div>

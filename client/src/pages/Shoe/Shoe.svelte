@@ -2,6 +2,9 @@
     import { each } from "svelte/internal";
     import { user } from "../../store/users.js"
 
+    import toastr from "toastr"
+    import "toastr/build/toastr.min.css";
+
     let shoeInformation = {}
     let shoe = {
         brand: null,
@@ -50,6 +53,25 @@
             }
         )
       })
+      toastr["success"]("Our staff will contact you for confirmation","Order successful");
+            
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "500",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
     }
 
     loadShoe()

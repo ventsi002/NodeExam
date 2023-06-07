@@ -3,6 +3,7 @@ const router = Router();
 import db from "../databases/connection.js";
 import multer from "multer";
 import path from "path";
+import { v4 as uuidv4 } from "uuid";
 
 
 router.get("/auctions", async (req, res) => {
@@ -28,7 +29,6 @@ router.get("/auctions/:id", async (req, res) => {
     console.log(auction);
     const photos = await db.all("SELECT photoLocation FROM photos WHERE shoeID = ?", auction.shoeID);
     res.send({ auction, photos });
-    //console.log(shoes);
 });
 
 const storage = multer.diskStorage({
@@ -36,7 +36,8 @@ const storage = multer.diskStorage({
         cb(null, "../client/public/auction-images/")
     },
     filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname))
+        const uniqueFilename = `${uuidv4()}${path.extname(file.originalname)}`;
+        cb(null, uniqueFilename);
     }
 });
 

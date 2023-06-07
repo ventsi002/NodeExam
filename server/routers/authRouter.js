@@ -1,6 +1,5 @@
 import { Router, json } from "express"
 const router = Router()
-import nodemailer from "nodemailer";
 
 import crypto from "crypto"
 import db from "../databases/connection.js"
@@ -28,10 +27,10 @@ router.post("/auth/signup", async (req, res) => {
     }
 
     if (!req.body.username || !req.body.password || !req.body.firstName || !req.body.lastName || !req.body.email || !req.body.address) {
-        return res.status(400).send({ message: "Form not completed" });
+        return res.status(403).send({ message: "Form not completed" });
     }
     const password = encrypt(req.body.password);
-    await db.run("INSERT INTO users(username, password, firstName, lastName, email, address, role) VALUES (?, ?, ?, ?, ?, ?, 3);", [req.body.username, password, req.body.firstName, req.body.lastName, req.body.email, req.body.address]);
+    await db.run("INSERT INTO users(username, password, firstName, lastName, email, address, role) VALUES (?, ?, ?, ?, ?, ?, 2);", [req.body.username, password, req.body.firstName, req.body.lastName, req.body.email, req.body.address]);
     res.send({ message: "User created successfully" });
 });
 
