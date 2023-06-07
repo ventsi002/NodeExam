@@ -1,4 +1,7 @@
 <script>
+    import toastr from "toastr";
+    import "toastr/build/toastr.min.css";
+
     let username;
     let password;
     let firstName;
@@ -28,6 +31,48 @@
         }).then((response) => {
             if (response.status === 200) {
                 window.location.href = "/";
+            }
+            else if (response.status === 400){
+                toastr["error"]("User already exists!");
+
+                toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "500",
+                "timeOut": "1500",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+                }
+            }
+            else if (response.status === 403){
+                toastr["error"]("Please fill in the fields");
+
+                toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "500",
+                "timeOut": "1500",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+                }
             }
         });
     }
@@ -100,7 +145,7 @@
                 id="loginButton"
                 on:click={signup}
             />
-            <a href="/login"><p>Already have an account? Log in</p></a>
+            <a href="/"><p>Already have an account? Log in</p></a>
         </form>
     </main>
 </body>

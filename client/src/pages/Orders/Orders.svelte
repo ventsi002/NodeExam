@@ -58,7 +58,6 @@
                 <th>Status</th>
             {#if $user.role.role === "admin" && $user !== null}
                 <th>Username</th>
-                <th></th>
             {/if}
             </thead>
             {#if orders.length > 0}

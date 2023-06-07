@@ -77,7 +77,7 @@ function forgotPass(event){
             id="submitButton"
             on:click={forgotPass}/>
         </form>
-        <a href="login"><p>Back to login</p></a>
+        <a href="/"><p>Back to login</p></a>
     </main>
 </body>
 

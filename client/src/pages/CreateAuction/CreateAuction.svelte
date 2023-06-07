@@ -3,6 +3,9 @@
     
         import { append } from "svelte/internal";
         import { user } from "../../store/users";
+
+        import toastr from "toastr"
+        import "toastr/build/toastr.min.css";
     
         let brand;
         let name;
@@ -20,33 +23,79 @@
     
         function createAuction(event) {
             event.preventDefault();
-    
-            formData.append('brand', brand);
-            formData.append('name', name);
-            formData.append('model', model);
-            formData.append('colorway', colorway);
-            formData.append('size', size);
-            formData.append('bid', price);
-            formData.append('endDate', date);
-            formData.append('description', description);
-            if($user !== null)
-            {
-                formData.append('username', $user.username);
+
+            
+            if(!brand || !name || !model || !colorway || !size || !price || !file || !description || !date) {
+                toastr["error"]("Missing information");
+                
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "500",
+                    "timeOut": "1500",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
             }
-            console.log(formData.get("file"));
-            fetch("http://localhost:8080/auctions", {
-                method: "POST",
-                credentials: "include",
-                body: formData
-            })
-            formData.set("file", null)
+            else{
+                formData.append('brand', brand);
+                formData.append('name', name);
+                formData.append('model', model);
+                formData.append('colorway', colorway);
+                formData.append('size', size);
+                formData.append('bid', price);
+                formData.append('endDate', date);
+                formData.append('description', description);
+                if($user !== null)
+                {
+                    formData.append('username', $user.username);
+                }
+                console.log(formData.get("file"));
+                fetch("http://localhost:8080/auctions", {
+                    method: "POST",
+                    credentials: "include",
+                    body: formData
+                })
+                formData.set("file", null)
+
+                toastr["success"]("Shoe created successfully");
+                    
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "500",
+                    "timeOut": "1500",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+
+                document.getElementById("form").reset();
+            }
         }
     
     </script>
     
     <body>
         <main>
-            <form>
+            <form id="form">
                 <div class="input-div">
                     <input
                         type="text"

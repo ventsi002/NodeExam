@@ -1,5 +1,7 @@
 import { Router } from "express";
 import nodemailer from "nodemailer";
+import db from "../databases/connection.js";
+import crypto from "crypto"
 const router = Router();
 
 
@@ -27,6 +29,17 @@ router.post('/contact', async (req, res) => {
     // Send a response to the client
     res.status(200).send();
 });
+
+
+const cypherKey = crypto.createHash('sha256').update('ShoesKey').digest()
+const initVector = "a2xhcgAAAAAAAAAA"
+
+export function decrypt(text) {
+    const decipher = crypto.createDecipheriv('aes-256-cbc', cypherKey, initVector)
+    let dec = decipher.update(text, 'hex', 'utf8')
+    dec += decipher.final("utf-8");
+    return dec;
+}
 
 router.post('/forgotPass', async (req, res) => {
     try {

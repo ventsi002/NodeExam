@@ -2,6 +2,10 @@
     import { useNavigate, useLocation } from "svelte-navigator";
     import { user } from "../../store/users.js";
 
+    import toastr from "toastr"
+    import "toastr/build/toastr.min.css";
+
+
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -45,7 +49,6 @@
                 const userCookie = JSON.stringify($user)
                 const date = new Date()
                 date.setDate(date.getDate()+1)
-                console.log(date.toUTCString());
                 document.cookie = `user=${userCookie}; path=/`
                 document.cookie = `expires=${date.toUTCString()}`
                 const from =
@@ -60,11 +63,32 @@
                     navigate(from, { replace: true });
                 }
             }
+            else if (response.status === 400){
+                toastr["error"]("Wrong credentials!");
+
+                toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "500",
+                "timeOut": "1500",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+                }
+            }
         });
+
     }
 </script>
 
-<!-- <Navigation/> -->
 <body>
     <main>
         <form>

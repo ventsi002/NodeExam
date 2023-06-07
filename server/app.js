@@ -21,6 +21,14 @@ app.use(session({
     cookie: { secure: false }
 }));
 
+import rateLimit from "express-rate-limit";
+app.use("/auth", rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 6,
+    standardHeaders: true,
+    legacyHeaders: false,
+}));
+
 import http from "http";
 import { Server } from "socket.io";
 

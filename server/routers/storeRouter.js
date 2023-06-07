@@ -3,6 +3,7 @@ const router = Router();
 import db from "../databases/connection.js";
 import multer from "multer";
 import path from "path";
+import { v4 as uuidv4 } from "uuid";
 
 router.get("/shoes", async (req, res) => {
     const shoes = await db.all("SELECT * FROM photos INNER JOIN shoes ON shoes.id = photos.shoeID WHERE shoes.forAuction = 0 GROUP BY shoes.id");
@@ -23,7 +24,8 @@ const storage = multer.diskStorage({
         cb(null, "../client/public/images/")
     },
     filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname))
+        const uniqueFilename = `${uuidv4()}${path.extname(file.originalname)}`;
+        cb(null, uniqueFilename);
     }
 });
 
@@ -31,9 +33,14 @@ const upload = multer({ storage: storage })
 
 router.post("/shoes", upload.array('file'), async (req, res) => {
     if (!req.body.brand || !req.body.name || !req.body.model || !req.body.colorway || !req.body.quantity || !req.body.size || !req.body.price) {
-        return res.status(400).send({ message: "Missing inforamtion" })
+        return res.status(403).send({ message: "Missing inforamtion" })
     }
-    const sizes = req.body.size.split(", ")
+    let sizes;
+    if (typeof req.body.size === 'string') {
+        sizes = req.body.size.split(", ");
+    } else {
+        sizes = [req.body.size];
+    }
     let id;
     for(const size of sizes)
     {
