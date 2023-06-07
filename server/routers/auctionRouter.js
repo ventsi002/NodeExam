@@ -65,6 +65,7 @@ router.put("/auctions/:id", async (req, res) => {
     const status = req.query.status
     if(!status)
     {
+        console.log("hello");
         await db.run("UPDATE auctions SET bid = ?, bidUser = ? WHERE id = ?", [req.body.bid, req.body.bidUser, updateID]);
     }
     else

@@ -31,11 +31,10 @@
         });
         const data = await response.json();
         auctionInformation = data;
-        auction = auctionInformation.shoes;
         auction = auctionInformation.auction;
         photos = auctionInformation.photos
         photos.forEach(photo => {photo.photoLocation.substring(16)});
-
+        console.log(auction);
         timeDifference();
     }
 
@@ -56,16 +55,30 @@
     }
     loadAuction();
 
-    let bidAmount = '';
+    let bidAmount = auction.bid;
     const socket = io("localhost:8080");
 
-    function placeBid() {
+    function placeBid(id) {
         const bidData = {
             amount: bidAmount,
             user: $user.username
         };
         socket.emit("placeBid", bidData);
         
+        const response = fetch(`http://localhost:8080/auctions/${id}`, {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+        "Content-Type": "application/json",
+        },
+        body: JSON.stringify(
+            {
+                bidUser: $user.username,
+                bid: bidAmount
+            }
+        )
+      })
+
         biddersStore.update(bidders => {
             const existingBidderIndex = bidders.findIndex(bidder => bidder.auctionId === id && bidder.bidder === $user.username);
             if(existingBidderIndex === -1)
@@ -154,8 +167,14 @@
         {#if $user !== null && $user.username !== auction.bidUser }
         <div class="bid-section">
             <h2 class="bid-title">Place a Bid</h2>
-            <input class="bid-input" type="number" on:change={() => {console.log(bidAmount) }} bind:value={bidAmount} placeholder="Enter your bid amount">
-            <button class="bid-button" on:click={placeBid}>Submit Bid</button>
+            <input class="bid-input" type="number" on:change={()=>
+            {
+                if(bidAmount < auction.bid)
+                {
+                    bidAmount = auction.bid+1
+                }
+            }} bind:value={bidAmount} placeholder="Enter your bid amount">
+            <button class="bid-button" on:click={() => {placeBid(auction.auctionID)}}>Submit Bid</button>
         </div>
             {:else}
             <h2>You are the highest bidder</h2>
