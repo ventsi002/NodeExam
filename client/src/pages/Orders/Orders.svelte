@@ -68,8 +68,9 @@
                             {#if $user.role.role === "admin"}
                                 {#each ordersLoaded as order}
                                 <tr>
-                                    <td>{order.id}</td>
+                                    <td>{order.orderid}</td>
                                     <td>{order.brand}</td>
+                                    <td>{order.name}</td>
                                     <td>{order.model}</td>
                                     <td>{order.size}</td>
                                     <td>{order.colorway}</td>
@@ -83,15 +84,16 @@
                                     </td>
                                     <td>{order.username}</td>
                                     <td>
-                                        <button on:click={()=> updateOrder(order.id, order.status)}>Update Order</button>
+                                        <button on:click={()=> updateOrder(order.orderid, order.status)}>Update Order</button>
                                     </td>
                                 </tr>
                                 {/each}
                             {:else}
                                 {#each ordersLoaded as order}
                                     <tr>
-                                        <td>{order.id}</td>
+                                        <td>{order.orderid}</td>
                                         <td>{order.brand}</td>
+                                        <td>{order.name}</td>
                                         <td>{order.model}</td>
                                         <td>{order.size}</td>
                                         <td>{order.colorway}</td>

@@ -90,7 +90,7 @@ router.get("/orders/:username", async (req,res) =>
 router.put("/orders/:id", async (req,res) =>
 {
     const id = req.params.id
-    await db.run("UPDATE orders SET status = ? WHERE id = ?", [req.body.status, id])
+    await db.run("UPDATE orders SET status = ? WHERE orderid = ?", [req.body.status, id])
     res.send({message: "Order status updated to " + req.body.status})
 })
 

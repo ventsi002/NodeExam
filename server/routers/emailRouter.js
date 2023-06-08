@@ -21,12 +21,8 @@ router.post('/contact', async (req, res) => {
         to: 'CEO <ventsi_mandatory@outlook.com>',
         subject: `${req.body.subject}`,
         text: `${req.body.text}`,
-    });
+    })
 
-    console.log('Message sent: %s', info.messageId);
-    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-
-    // Send a response to the client
     res.status(200).send();
 });
 
@@ -43,7 +39,6 @@ export function decrypt(text) {
 
 router.post('/forgotPass', async (req, res) => {
     try {
-        //let testAccount = await nodemailer.createTestAccount();
 
         let transporter = nodemailer.createTransport({
             host: 'smtp-mail.outlook.com',

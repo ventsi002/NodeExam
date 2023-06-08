@@ -120,7 +120,9 @@
         </div>
     </div>
 <div id="button-wrapper">
+    {#if pickedSize !== undefined}
     <button on:click={orderShoe}>Buy</button>
+    {/if}
 </div>
 <div id="description">
     <p>Model number: {shoe.model}</p>

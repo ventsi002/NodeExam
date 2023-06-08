@@ -26,7 +26,6 @@ router.get("auctioneer/auctions/:username/", async (req, res) => {
 router.get("/auctions/:id", async (req, res) => {
     const id = req.params.id
     const auction = await db.get("SELECT * FROM auctions INNER JOIN auction_items ON auction_items.auctionID = auctions.id INNER JOIN shoes ON auction_items.shoeID = shoes.id  WHERE auctions.id = ? GROUP BY shoes.id", [id]);
-    console.log(auction);
     const photos = await db.all("SELECT photoLocation FROM photos WHERE shoeID = ?", auction.shoeID);
     res.send({ auction, photos });
 });
@@ -66,7 +65,6 @@ router.put("/auctions/:id", async (req, res) => {
     const status = req.query.status
     if(!status)
     {
-        console.log("hello");
         await db.run("UPDATE auctions SET bid = ?, bidUser = ? WHERE id = ?", [req.body.bid, req.body.bidUser, updateID]);
     }
     else
