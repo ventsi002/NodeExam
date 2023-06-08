@@ -1,6 +1,7 @@
 <script>
 import { user } from "../../store/users";
 import { navigate } from "svelte-navigator";
+import { onMount } from "svelte";
 
     let auctions = []
 
@@ -8,6 +9,17 @@ import { navigate } from "svelte-navigator";
     {
         const response = fetch(`http://localhost:8080/auctions/${id}?status=${status}`, {
         method: "PUT",
+        credentials: "include",
+        headers: {
+        "Content-Type": "application/json",
+        },
+      })
+    }
+
+    function deleteAuction(id)
+    {
+        const response = fetch(`http://localhost:8080/auctions/${id}`, {
+        method: "DELETE",
         credentials: "include",
         headers: {
         "Content-Type": "application/json",
@@ -40,6 +52,9 @@ import { navigate } from "svelte-navigator";
         }
     }
     loadAuctions()
+    onMount(async () => {
+        loadAuctions()
+  });
 
 
 </script>
@@ -65,6 +80,7 @@ import { navigate } from "svelte-navigator";
             <th>Status</th>
         {#if $user !== null && $user.role.role === "admin"}
             <th>Auctioneer</th>
+            <th></th>
             <th></th>
         {/if}
         </thead>
@@ -100,6 +116,9 @@ import { navigate } from "svelte-navigator";
                                 <td>{auction.auctioneer}</td>
                                 <td>
                                     <button on:click={()=> updateAuction(auction.id, auction.status)}>Update Auction</button>
+                                </td>
+                                <td>
+                                    <button on:click={()=> deleteAuction(auction.id)}>Delete Auction</button>
                                 </td>
                             </tr>
                         {/each}

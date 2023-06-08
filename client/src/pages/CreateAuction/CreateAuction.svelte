@@ -67,7 +67,7 @@
                 })
                 formData.set("file", null)
 
-                toastr["success"]("Shoe created successfully");
+                toastr["success"]("Auction created successfully");
                     
                 toastr.options = {
                     "closeButton": false,

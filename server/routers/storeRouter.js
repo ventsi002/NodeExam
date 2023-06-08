@@ -76,7 +76,7 @@ router.post("/orders", async (req,res) =>
 
 router.get("/orders", async(req, res) =>
 {
-    const orders = await db.all("SELECT * FROM orders INNER JOIN shoes ON orders.shoeID = shoes.id")
+    const orders = await db.all("SELECT * FROM orders JOIN shoes ON orders.shoeID = shoes.id")
     res.send( orders )
 })
 

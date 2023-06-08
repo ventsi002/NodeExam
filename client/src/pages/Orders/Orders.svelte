@@ -31,6 +31,7 @@
                     credentials: "include",
                 })
                 orders = await response.json()
+                console.log(orders)
             }
             else
             {

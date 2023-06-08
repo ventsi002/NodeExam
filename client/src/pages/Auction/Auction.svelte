@@ -285,6 +285,6 @@
         align-items: center;
         display: flex;
         width: 75%;
-        margin-left: 120px;
+        margin-left: 100px;
     }
 </style>

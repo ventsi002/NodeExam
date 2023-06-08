@@ -129,7 +129,7 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-.client/public
+./client/public
 
 #Databases
 shoes.db
