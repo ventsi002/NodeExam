@@ -16,9 +16,9 @@ router.get("/admin/auctions", async (req, res) => {
     res.send( auction );
 });
 
-router.get("auctioneer/auctions/:username/", async (req, res) => {
+router.get("/auctioneer/auctions/:username/", async (req, res) => {
     const auctioneer = req.params.username
-    const auction = await db.all("SELECT * FROM auction_items INNER JOIN shoes ON auction_items.shoeID = shoes.id INNER JOIN auctions ON auction_items.auctionID = auctions.id INNER JOIN photos ON shoes.id = photos.shoeID WHERE auctions.auctioneer = ? GROUP BY shoes.id ", [auctioneer]);
+    const auction = await db.all("SELECT * FROM auction_items INNER JOIN shoes ON auction_items.shoeID = shoes.id INNER JOIN auctions ON auction_items.auctionID = auctions.id INNER JOIN photos ON shoes.id = photos.shoeID WHERE auction_items.auctioneer = ? GROUP BY shoes.id ", [auctioneer]);
     res.send( auction );
 });
 

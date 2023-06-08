@@ -30,7 +30,7 @@ router.post("/auth/signup", async (req, res) => {
         return res.status(403).send({ message: "Form not completed" });
     }
     const password = encrypt(req.body.password);
-    await db.run("INSERT INTO users(username, password, firstName, lastName, email, address, role) VALUES (?, ?, ?, ?, ?, ?, 2);", [req.body.username, password, req.body.firstName, req.body.lastName, req.body.email, req.body.address]);
+    await db.run("INSERT INTO users(username, password, firstName, lastName, email, address, role) VALUES (?, ?, ?, ?, ?, ?, 1  );", [req.body.username, password, req.body.firstName, req.body.lastName, req.body.email, req.body.address]);
     res.send({ message: "User created successfully" });
 });
 
